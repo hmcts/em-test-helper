@@ -1,4 +1,4 @@
-package uk.gov.hmcts.reform.em.test;
+package uk.gov.hmcts.reform.em.test.api;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;

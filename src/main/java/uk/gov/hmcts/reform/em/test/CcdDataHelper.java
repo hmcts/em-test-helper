@@ -22,7 +22,7 @@ public class CcdDataHelper {
 
     public CaseDetails createCase(String username, String jurisdiction, String caseType, String eventId, Object data) {
 
-        final String userAuthorization = idamHelper.getAuthenticatedUserIdamToken(username);
+        final String userAuthorization = idamHelper.authenticateUser(username);
         final String s2sAuthorization = s2sHelper.getCcdGwS2sToken();
 
         StartEventResponse startEventResponse = coreCaseDataApi.startCase(
@@ -48,7 +48,7 @@ public class CcdDataHelper {
     }
 
     public CaseDetails getCase(String username, String caseId) {
-        final String userAuthorization = idamHelper.getAuthenticatedUserIdamToken(username);
+        final String userAuthorization = idamHelper.authenticateUser(username);
         final String s2sAuthorization = s2sHelper.getCcdGwS2sToken();
         return coreCaseDataApi.getCase(userAuthorization, s2sAuthorization, caseId);
     }

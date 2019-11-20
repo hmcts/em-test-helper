@@ -8,7 +8,10 @@ plugins {
     id 'maven'
     id 'maven-publish'
     id 'net.ltgt.apt' version '0.21'
+    id 'io.franzbecker.gradle-lombok' version '1.14'
 }
+
+apply plugin: 'idea'
 
 def buildNumber = System.getenv("RELEASE_VERSION")?.replace("refs/tags/", "") ?: "DEV-SNAPSHOT"
 
@@ -29,6 +32,28 @@ dependencyUpdates.resolutionStrategy {
     }
   }
 }
+
+configurations {
+    aatCompile.extendsFrom(testCompile)
+    aatRuntime.extendsFrom(testRuntime)
+}
+
+sourceSets {
+    aat {
+        java {
+            compileClasspath += main.output
+            runtimeClasspath += main.output
+            srcDir('src/aat/java')
+        }
+        resources {
+            srcDir('src/aat/resources')
+        }
+    }
+    test {
+        java.srcDir 'src/test/java'
+    }
+}
+
 
 checkstyle {
     maxWarnings = 0
@@ -136,8 +161,8 @@ bintray {
 ext {
     lombokVersion = '1.18.8'
     springCloudVersion = 'Greenwich.SR3'
-    feignVersion = '10.2.3'
-    feignFormVersion = '3.5.0'
+    feignVersion = '10.6.0'
+    feignFormVersion = '3.8.0'
     wiremockVersion = '2.24.1'
 }
 
@@ -152,6 +177,8 @@ dependencyManagement {
 dependencies {
     compile "uk.gov.hmcts.reform:idam-client:1.2.2"
     compile "uk.gov.hmcts.reform:core-case-data-store-client:4.6.4"
+    compile "uk.gov.hmcts.reform:document-management-client:6.0.0"
+
     compile group: 'com.warrenstrange', name: 'googleauth', version: '1.4.0'
 
     api group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign'
@@ -171,6 +198,7 @@ dependencies {
     testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test'
 
     testCompile group: 'com.github.tomakehurst', name:'wiremock-jre8', version: wiremockVersion
+    testCompile group: 'org.mockito', name: 'mockito-core', version: '3.1.0'
 
     testImplementation group: 'org.springframework.cloud', name: 'spring-cloud-contract-wiremock'
 }
@@ -189,4 +217,20 @@ bootJar {
 
 jar {
     enabled = true
+}
+
+idea {
+    module {
+        testSourceDirs += project.sourceSets.aat.java.srcDirs
+        testResourceDirs += project.sourceSets.aat.resources.srcDirs
+    }
+}
+
+
+task functional(type: Test) {
+    group = 'Delivery pipeline'
+    description = 'Executes functional tests'
+    setTestClassesDirs(sourceSets.aat.output.classesDirs)
+    setClasspath(sourceSets.aat.runtimeClasspath)
+    include "uk/gov/hmcts/reform/em/functional/**"
 }

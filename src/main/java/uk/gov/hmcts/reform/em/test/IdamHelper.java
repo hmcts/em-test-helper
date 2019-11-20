@@ -3,6 +3,7 @@ package uk.gov.hmcts.reform.em.test;
 import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import uk.gov.hmcts.reform.em.test.api.DeleteUserApi;
 import uk.gov.hmcts.reform.idam.client.IdamClient;
 import uk.gov.hmcts.reform.idam.client.IdamTestApi;
 import uk.gov.hmcts.reform.idam.client.models.test.CreateUserRequest;
@@ -33,34 +34,33 @@ public class IdamHelper {
         this.deleteUserApi = deleteUserApi;
     }
 
-    public String authenticateUser(String username, List<String> roles) {
+    public void createUser(String username, List<String> roles) {
 
-        if (!idamTokens.containsKey(username)) {
-            try {
-                deleteUserApi.deleteUser(username);
-            } catch (FeignException.NotFound e) {
-                //DO NOTHING
-            }
+        deleteUser(username);
 
-            idamTestApi.createUser(CreateUserRequest.builder().email(username).password(password)
-                    .roles(roles.stream().map(UserRole::new).collect(Collectors.toList())).build());
+        idamTestApi.createUser(CreateUserRequest.builder().email(username).password(password)
+                .roles(roles.stream().map(UserRole::new).collect(Collectors.toList())).build());
 
-            String code = idamClient.authenticateUser(username, password);
-
-            idamTokens.put(username, code);
-        }
-        return idamTokens.get(username);
     }
 
     public void deleteUser(String username) {
-        deleteUserApi.deleteUser(username);
+        try {
+            idamTokens.remove(username);
+            deleteUserApi.deleteUser(username);
+        } catch (FeignException.NotFound e) {
+            //DO NOTHING
+        }
     }
 
     public String getUserId(String username) {
-        return idamClient.getUserDetails(getAuthenticatedUserIdamToken(username)).getId();
+        return idamClient.getUserDetails(authenticateUser(username)).getId();
     }
 
-    public String getAuthenticatedUserIdamToken(String username) {
+    public String authenticateUser(String username) {
+        if (!idamTokens.containsKey(username)) {
+            String code = idamClient.authenticateUser(username, password);
+            idamTokens.put(username, code);
+        }
         return idamTokens.get(username);
     }
 

@@ -234,3 +234,20 @@ task functional(type: Test) {
     setClasspath(sourceSets.aat.runtimeClasspath)
     include "uk/gov/hmcts/reform/em/functional/**"
 }
+
+bintray {
+    user = System.getenv('BINTRAY_USER')
+    key = System.getenv('BINTRAY_KEY')
+    publications = ['Main']
+    publish = true
+    pkg {
+        repo = 'hmcts-maven'
+        name = 'em-test-helper'
+        userOrg = 'hmcts'
+        licenses = ['MIT']
+        vcsUrl = gitRepo
+        version {
+            name = project.version
+        }
+    }
+}

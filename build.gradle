@@ -127,13 +127,13 @@ publishing {
             artifact sourcesJar
             artifact javadocJar
             groupId project.group
-            artifactId 'idam-client'
+            artifactId 'em-test-helper'
             version project.version
 
             pom.withXml {
                 def root = asNode()
-                root.appendNode('description', 'Idam client')
-                root.appendNode('name', 'Idam client')
+                root.appendNode('description', 'Em Test Helper')
+                root.appendNode('name', 'Em Test Helper')
                 root.appendNode('url', gitRepo)
                 root.children().last() + pomConfig
             }

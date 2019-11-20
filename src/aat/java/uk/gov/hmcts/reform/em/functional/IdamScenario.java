@@ -21,8 +21,8 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @EnableFeignClients(basePackages = {"uk.gov.hmcts.reform.idam.client", "uk.gov.hmcts.reform.em.test"})
-@SpringBootTest(classes = {IdamClient.class, IdamApi.class, IdamHelper.class, DeleteUserApi.class, IdamTestApi.class
-        , RestTemplateConfig.class})
+@SpringBootTest(classes = {IdamClient.class, IdamApi.class, IdamHelper.class, DeleteUserApi.class, IdamTestApi.class,
+        RestTemplateConfig.class})
 @PropertySource(value = "classpath:application.yml")
 @EnableAutoConfiguration
 @RunWith(SpringRunner.class)

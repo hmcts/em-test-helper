@@ -9,7 +9,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import uk.gov.hmcts.reform.document.domain.Document;
 import uk.gov.hmcts.reform.em.EmTestConfig;
-import uk.gov.hmcts.reform.em.test.DmHelper;
+import uk.gov.hmcts.reform.em.test.dm.DmHelper;
 
 import java.io.InputStream;
 import java.util.Arrays;

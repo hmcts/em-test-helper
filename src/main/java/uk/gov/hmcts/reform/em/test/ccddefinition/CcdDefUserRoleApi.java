@@ -1,4 +1,4 @@
-package uk.gov.hmcts.reform.em.test.api;
+package uk.gov.hmcts.reform.em.test.ccddefinition;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

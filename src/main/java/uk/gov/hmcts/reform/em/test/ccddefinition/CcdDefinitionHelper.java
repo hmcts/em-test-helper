@@ -1,17 +1,15 @@
-package uk.gov.hmcts.reform.em.test;
+package uk.gov.hmcts.reform.em.test.ccddefinition;
 
 import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import uk.gov.hmcts.reform.em.test.api.CcdDefImportApi;
-import uk.gov.hmcts.reform.em.test.api.CcdDefUserRoleApi;
+import uk.gov.hmcts.reform.em.test.idam.IdamHelper;
+import uk.gov.hmcts.reform.em.test.s2s.S2sHelper;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-@Service
 public class CcdDefinitionHelper {
 
     private final IdamHelper idamHelper;

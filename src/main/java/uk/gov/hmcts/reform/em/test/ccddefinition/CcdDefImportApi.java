@@ -1,12 +1,10 @@
-package uk.gov.hmcts.reform.em.test.api;
+package uk.gov.hmcts.reform.em.test.ccddefinition;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -19,13 +17,12 @@ import java.io.IOException;
 import static java.util.Objects.requireNonNull;
 import static org.springframework.http.MediaType.MULTIPART_FORM_DATA_VALUE;
 
-@Service
 public class CcdDefImportApi {
 
     private final String url;
     private final RestTemplate restTemplate;
 
-    public CcdDefImportApi(@Value("${ccd-def.api.url}") String url, RestTemplate restTemplate) {
+    public CcdDefImportApi(String url, RestTemplate restTemplate) {
         this.url = url;
         this.restTemplate = restTemplate;
     }

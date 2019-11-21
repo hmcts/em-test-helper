@@ -1,9 +1,6 @@
-package uk.gov.hmcts.reform.em.test;
+package uk.gov.hmcts.reform.em.test.idam;
 
 import feign.FeignException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import uk.gov.hmcts.reform.em.test.api.DeleteUserApi;
 import uk.gov.hmcts.reform.idam.client.IdamClient;
 import uk.gov.hmcts.reform.idam.client.IdamTestApi;
 import uk.gov.hmcts.reform.idam.client.models.test.CreateUserRequest;
@@ -14,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@Service
 public class IdamHelper {
 
     private final IdamClient idamClient;
@@ -27,7 +23,6 @@ public class IdamHelper {
 
     private final Map<String, String> idamTokens = new HashMap<>();
 
-    @Autowired
     public IdamHelper(IdamClient idamClient, IdamTestApi idamTestApi, DeleteUserApi deleteUserApi) {
         this.idamClient = idamClient;
         this.idamTestApi = idamTestApi;

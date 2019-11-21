@@ -1,11 +1,8 @@
-package uk.gov.hmcts.reform.em.test;
+package uk.gov.hmcts.reform.em.test.s2s;
 
 import com.warrenstrange.googleauth.GoogleAuthenticator;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-import uk.gov.hmcts.reform.em.test.api.S2sApi;
 
-@Service
 public class S2sHelper {
 
     private final String ccdGwTotpSecret;

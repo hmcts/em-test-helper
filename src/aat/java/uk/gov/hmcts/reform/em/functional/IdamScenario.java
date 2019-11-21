@@ -8,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import uk.gov.hmcts.reform.em.EmTestConfig;
-import uk.gov.hmcts.reform.em.test.IdamHelper;
+import uk.gov.hmcts.reform.em.test.idam.IdamHelper;
 
 import java.util.stream.Collectors;
 import java.util.stream.Stream;

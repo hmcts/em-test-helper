@@ -19,7 +19,7 @@ public class IdamHelper {
 
     private final DeleteUserApi deleteUserApi;
 
-    private final String password = "password";
+    private final String password = "4590fgvhbfgbDdffm3lk4j";
 
     private final Map<String, String> idamTokens = new HashMap<>();
 

@@ -31,8 +31,8 @@ idam:
 s2s:
   api:
     url: 'http://localhost:4502'
-    ccdGwSecret: 'AAAAAAAAAAAAAAAA'
-    ccdGwServiceName: 'ccd_gw'
+    secret: 'AAAAAAAAAAAAAAAA'
+    serviceName: 'ccd_gw'
     
 document_management:
   url: 'http://localhost:4603'    
@@ -66,4 +66,3 @@ For the versions available, see the tags on this repository.
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
-# em-test-helper

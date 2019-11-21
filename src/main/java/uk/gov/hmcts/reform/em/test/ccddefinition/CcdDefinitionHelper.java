@@ -32,7 +32,7 @@ public class CcdDefinitionHelper {
     public void importDefinitionFile(String username, String userRole, InputStream caseDefFile) throws IOException {
 
         ccdDefUserRoleApi.createUserRole(new CcdDefUserRoleApi.CreateUserRoleBody(userRole, "PUBLIC"),
-                idamHelper.authenticateUser(username), s2sHelper.getCcdGwS2sToken());
+                idamHelper.authenticateUser(username), s2sHelper.getS2sToken());
 
         MultipartFile multipartFile = new MockMultipartFile(
                 "x",
@@ -41,7 +41,7 @@ public class CcdDefinitionHelper {
                 caseDefFile);
 
         ccdDefImportApi.importCaseDefinition(idamHelper.authenticateUser(username),
-                s2sHelper.getCcdGwS2sToken(), multipartFile);
+                s2sHelper.getS2sToken(), multipartFile);
 
     }
 

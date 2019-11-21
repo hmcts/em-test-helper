@@ -45,7 +45,7 @@ public class DmHelper {
 
         UploadResponse uploadResponse = documentUploadClientApi.upload(
                 null,
-                s2sHelper.getCcdGwS2sToken(),
+                s2sHelper.getS2sToken(),
                 null,
                 new ArrayList<>(),
                 Classification.PUBLIC,
@@ -60,13 +60,13 @@ public class DmHelper {
 
     public Document getDocumentMetadata(String id) {
         return documentMetadataDownloadClientApi.getDocumentMetadata(
-                null, s2sHelper.getCcdGwS2sToken(), "caseworker", null,
+                null, s2sHelper.getS2sToken(), "caseworker", null,
                 String.format("documents/%s", id));
     }
 
     public InputStream getDocumentBinary(String id) throws IOException {
         ResponseEntity<Resource> responseEntity =
-                documentDownloadClientApi.downloadBinary(null, s2sHelper.getCcdGwS2sToken(),
+                documentDownloadClientApi.downloadBinary(null, s2sHelper.getS2sToken(),
                         "caseworker", null, String.format("documents/%s/binary", id));
         return responseEntity.getBody().getInputStream();
     }

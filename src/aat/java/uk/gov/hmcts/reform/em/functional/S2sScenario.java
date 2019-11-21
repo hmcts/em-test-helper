@@ -21,7 +21,7 @@ public class S2sScenario {
 
     @Test
     public void getCcdGwS2sToken() {
-        assertThat(s2sHelper.getCcdGwS2sToken()).isNotEmpty();
+        assertThat(s2sHelper.getS2sToken()).isNotEmpty();
     }
 
 }

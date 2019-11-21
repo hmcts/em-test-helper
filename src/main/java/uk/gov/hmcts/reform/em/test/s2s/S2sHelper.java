@@ -5,23 +5,23 @@ import org.springframework.beans.factory.annotation.Value;
 
 public class S2sHelper {
 
-    private final String ccdGwTotpSecret;
-    private final String ccdGwMicroserviceName;
+    private final String totpSecret;
+    private final String microserviceName;
     private final S2sApi s2sApi;
 
-    public S2sHelper(@Value("${s2s.api.ccdGwSecret}") String ccdGwTotpSecret,
-                     @Value("${s2s.api.ccdGwServiceName}") String ccdGwMicroserviceName,
+    public S2sHelper(@Value("${s2s.api.secret}") String totpSecret,
+                     @Value("${s2s.api.serviceName}") String microserviceName,
                      S2sApi s2sApi) {
-        this.ccdGwTotpSecret = ccdGwTotpSecret;
-        this.ccdGwMicroserviceName = ccdGwMicroserviceName;
+        this.totpSecret = totpSecret;
+        this.microserviceName = microserviceName;
         this.s2sApi = s2sApi;
     }
 
-    public String getCcdGwS2sToken() {
-        return getS2sToken(ccdGwMicroserviceName, ccdGwTotpSecret);
+    public String getS2sToken() {
+        return generateS2sToken(microserviceName, totpSecret);
     }
 
-    private String getS2sToken(String microserviceName, String microserviceSecret) {
+    private String generateS2sToken(String microserviceName, String microserviceSecret) {
         S2sApi.S2sPostBody s2sPostBody = new S2sApi.S2sPostBody(
                 microserviceName,
                 String.valueOf(new GoogleAuthenticator().getTotpPassword(microserviceSecret)));

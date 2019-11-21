@@ -13,11 +13,11 @@ public class S2sConfiguration {
 
     @Bean
     public S2sHelper s2sHelper(
-            @Value("${s2s.api.secret}") String ccdGwTotpSecret,
-            @Value("${s2s.api.serviceName}") String ccdGwMicroserviceName,
+            @Value("${s2s.api.secret}") String totpSecret,
+            @Value("${s2s.api.serviceName}") String microserviceName,
             S2sApi s2sApi) {
-        return new S2sHelper(ccdGwTotpSecret,
-                ccdGwMicroserviceName,
+        return new S2sHelper(totpSecret,
+                microserviceName,
                 s2sApi);
     }
 

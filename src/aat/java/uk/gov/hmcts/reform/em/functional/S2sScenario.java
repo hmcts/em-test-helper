@@ -20,7 +20,7 @@ public class S2sScenario {
     S2sHelper s2sHelper;
 
     @Test
-    public void getCcdGwS2sToken() {
+    public void getS2sToken() {
         assertThat(s2sHelper.getS2sToken()).isNotEmpty();
     }
 

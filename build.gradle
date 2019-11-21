@@ -8,7 +8,7 @@ plugins {
     id 'maven'
     id 'maven-publish'
     id 'net.ltgt.apt' version '0.21'
-    id 'io.franzbecker.gradle-lombok' version '1.14'
+    id 'io.franzbecker.gradle-lombok' version '3.2.0'
 }
 
 apply plugin: 'idea'

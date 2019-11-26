@@ -53,7 +53,7 @@ public class CcdDataHelper {
         return coreCaseDataApi.getCase(userAuthorization, s2sAuthorization, caseId);
     }
 
-    public StartEventResponse startEvent(String username, String caseId, String eventId){
+    public StartEventResponse startEvent(String username, String caseId, String eventId) {
         final String userAuthorization = idamHelper.authenticateUser(username);
         final String s2sAuthorization = s2sHelper.getS2sToken();
         return coreCaseDataApi.startEvent(userAuthorization, s2sAuthorization, caseId, eventId);

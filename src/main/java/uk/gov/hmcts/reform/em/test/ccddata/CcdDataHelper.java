@@ -53,10 +53,27 @@ public class CcdDataHelper {
         return coreCaseDataApi.getCase(userAuthorization, s2sAuthorization, caseId);
     }
 
-    public StartEventResponse startEvent(String username, String caseId, String eventId) {
+    public CaseDetails triggerEvent(String username, String caseId, String eventId) {
         final String userAuthorization = idamHelper.authenticateUser(username);
         final String s2sAuthorization = s2sHelper.getS2sToken();
-        return coreCaseDataApi.startEvent(userAuthorization, s2sAuthorization, caseId, eventId);
+        final String userId = idamHelper.getUserId(username);
+
+        StartEventResponse startEventResponse = coreCaseDataApi
+                .startEvent(userAuthorization, s2sAuthorization, caseId, eventId);
+
+        return coreCaseDataApi.submitEventForCaseWorker(userAuthorization,
+                s2sAuthorization,
+                userId,
+                startEventResponse.getCaseDetails().getJurisdiction(),
+                startEventResponse.getCaseDetails().getCaseTypeId(),
+                caseId,
+                false,
+                CaseDataContent.builder()
+                        .data(startEventResponse.getCaseDetails().getData())
+                        .eventToken(startEventResponse.getToken())
+                        .event(Event.builder().id(startEventResponse.getEventId()).build())
+                        .build()
+                );
     }
 
 }

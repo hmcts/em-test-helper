@@ -48,6 +48,8 @@ public class CcdScenario {
 
         assertThat(retrievedCaseDetails).isNotNull();
 
+        ccdDataHelper.triggerEvent("bundle-tester@gmail.com", caseDetails.getId().toString(), "editCaseDetails");
+
     }
 
 }

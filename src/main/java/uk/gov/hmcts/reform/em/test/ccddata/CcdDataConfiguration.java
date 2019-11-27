@@ -13,7 +13,9 @@ import uk.gov.hmcts.reform.em.test.s2s.S2sHelper;
 public class CcdDataConfiguration {
 
     @Bean
-    CcdDataHelper ccdDataHelper(IdamHelper idamHelper, @Qualifier("ccdS2sHelper") S2sHelper ccdS2sHelper, CoreCaseDataApi coreCaseDataApi) {
+    CcdDataHelper ccdDataHelper(IdamHelper idamHelper,
+                                @Qualifier("ccdS2sHelper") S2sHelper ccdS2sHelper,
+                                CoreCaseDataApi coreCaseDataApi) {
         return new CcdDataHelper(idamHelper, ccdS2sHelper, coreCaseDataApi);
     }
 }

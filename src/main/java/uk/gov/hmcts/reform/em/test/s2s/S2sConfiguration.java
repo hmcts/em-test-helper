@@ -21,4 +21,14 @@ public class S2sConfiguration {
                 s2sApi);
     }
 
+    @Bean
+    public S2sHelper ccdS2sHelper(
+            @Value("${s2s.api.ccdGwSecret}") String totpSecret,
+            @Value("${s2s.api.ccdGwServiceName}") String microserviceName,
+            S2sApi s2sApi) {
+        return new S2sHelper(totpSecret,
+                microserviceName,
+                s2sApi);
+    }
+
 }

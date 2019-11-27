@@ -1,7 +1,6 @@
 package uk.gov.hmcts.reform.em.test.s2s;
 
 import com.warrenstrange.googleauth.GoogleAuthenticator;
-import org.springframework.beans.factory.annotation.Value;
 
 public class S2sHelper {
 
@@ -9,8 +8,8 @@ public class S2sHelper {
     private final String microserviceName;
     private final S2sApi s2sApi;
 
-    public S2sHelper(@Value("${s2s.api.secret}") String totpSecret,
-                     @Value("${s2s.api.serviceName}") String microserviceName,
+    public S2sHelper(String totpSecret,
+                     String microserviceName,
                      S2sApi s2sApi) {
         this.totpSecret = totpSecret;
         this.microserviceName = microserviceName;
@@ -21,7 +20,7 @@ public class S2sHelper {
         return generateS2sToken(microserviceName, totpSecret);
     }
 
-    public String generateS2sToken(String microserviceName, String microserviceSecret) {
+    private String generateS2sToken(String microserviceName, String microserviceSecret) {
         S2sApi.S2sPostBody s2sPostBody = new S2sApi.S2sPostBody(
                 microserviceName,
                 String.valueOf(new GoogleAuthenticator().getTotpPassword(microserviceSecret)));

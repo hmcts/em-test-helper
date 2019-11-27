@@ -21,7 +21,7 @@ public class S2sHelper {
         return generateS2sToken(microserviceName, totpSecret);
     }
 
-    private String generateS2sToken(String microserviceName, String microserviceSecret) {
+    public String generateS2sToken(String microserviceName, String microserviceSecret) {
         S2sApi.S2sPostBody s2sPostBody = new S2sApi.S2sPostBody(
                 microserviceName,
                 String.valueOf(new GoogleAuthenticator().getTotpPassword(microserviceSecret)));

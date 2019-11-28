@@ -8,7 +8,7 @@ import uk.gov.hmcts.reform.em.test.idam.IdamHelper;
 import uk.gov.hmcts.reform.em.test.s2s.S2sHelper;
 
 @Configuration
-@ConditionalOnProperty(prefix = "ccd-def", value = "api.url")
+@ConditionalOnProperty({"ccd-def.api.url", "s2s.api.url", "idam.api.url"})
 public class CcdDefinitionHelperConfiguration {
 
     @Bean

@@ -8,7 +8,7 @@ import uk.gov.hmcts.reform.idam.client.IdamClient;
 import uk.gov.hmcts.reform.idam.client.IdamTestApi;
 
 @Configuration
-@ConditionalOnProperty(prefix = "idam", value = "api.url")
+@ConditionalOnProperty("idam.api.url")
 @ComponentScan(basePackages = "uk.gov.hmcts.reform.idam.client")
 public class IdamConfiguration {
 

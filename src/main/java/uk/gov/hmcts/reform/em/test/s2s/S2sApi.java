@@ -2,6 +2,7 @@ package uk.gov.hmcts.reform.em.test.s2s;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
     name = "s2s-api",
     url = "${s2s.api.url}"
 )
+@ConditionalOnProperty("s2s.api.url")
 public interface S2sApi {
 
     @RequestMapping(method = RequestMethod.POST, value = "/lease",

@@ -9,7 +9,7 @@ import uk.gov.hmcts.reform.document.DocumentUploadClientApi;
 import uk.gov.hmcts.reform.em.test.s2s.S2sHelper;
 
 @Configuration
-@ConditionalOnProperty(prefix = "document_management", value = "url")
+@ConditionalOnProperty({"document_management.url", "s2s.api.url"})
 public class DmConfiguration {
 
     @Bean

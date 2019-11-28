@@ -50,8 +50,7 @@ core_case_data:
 
 Then @Autowire the following components:
 - IdamHelper
-- S2sHelper
-- S2sHelper
+- S2sHelper (there are 2 beans of that type: em_gw helper and ccd_gw helper - the format, main one [@Qualifier("s2sHelper")] and the latter used by ccd helpers [@Qualifier("ccdS2sHelper")])
 - DmHelper
 - CcdDataHelper
 - CcdDefinitionHelper

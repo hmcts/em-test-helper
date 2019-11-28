@@ -9,7 +9,7 @@ import uk.gov.hmcts.reform.em.test.idam.IdamHelper;
 import uk.gov.hmcts.reform.em.test.s2s.S2sHelper;
 
 @Configuration
-@ConditionalOnProperty(prefix = "core_case_data", value = "api.url")
+@ConditionalOnProperty({"core_case_data.api.url", "s2s.api.url", "ccd-def.api.url", "idam.api.url"})
 public class CcdDataConfiguration {
 
     @Bean

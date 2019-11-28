@@ -1,5 +1,6 @@
 package uk.gov.hmcts.reform.em.test.ccddefinition;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpEntity;
@@ -17,6 +18,7 @@ import java.io.IOException;
 import static java.util.Objects.requireNonNull;
 import static org.springframework.http.MediaType.MULTIPART_FORM_DATA_VALUE;
 
+@ConditionalOnProperty("ccd-def.api.url")
 public class CcdDefImportApi {
 
     private final String url;

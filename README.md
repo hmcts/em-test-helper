@@ -17,7 +17,7 @@ Usage:
 public class MyTestScenario {
 </pre>
 
-- Make sure that Particular Helpers are initiated by providing URL to the respective services
+- Make sure that particular Helpers are initiated by providing URL to the respective services
 
 <pre>
 idam:
@@ -32,7 +32,9 @@ s2s:
   api:
     url: 'http://localhost:4502'
     secret: 'AAAAAAAAAAAAAAAA'
-    serviceName: 'ccd_gw'
+    serviceName: 'em_gw'
+    ccdGwSecret: 'AAAAAAAAAAAAAAAA'
+    ccdGwServiceName: 'ccd_gw'    
     
 document_management:
   url: 'http://localhost:4603'    
@@ -48,6 +50,7 @@ core_case_data:
 
 Then @Autowire the following components:
 - IdamHelper
+- S2sHelper
 - S2sHelper
 - DmHelper
 - CcdDataHelper

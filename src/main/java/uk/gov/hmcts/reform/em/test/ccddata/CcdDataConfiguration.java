@@ -11,7 +11,7 @@ import uk.gov.hmcts.reform.em.test.s2s.S2sHelper;
 
 @Configuration
 @ConditionalOnProperty({"core_case_data.api.url", "ccd-def.api.url"})
-@ConditionalOnBean(name={"ccdS2sHelper", "idamHelper"})
+@ConditionalOnBean(name = {"ccdS2sHelper", "idamHelper"})
 public class CcdDataConfiguration {
 
     @Bean

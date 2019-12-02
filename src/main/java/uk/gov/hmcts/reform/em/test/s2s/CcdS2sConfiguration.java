@@ -7,14 +7,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ConditionalOnProperty({"s2s.api.secret","s2s.api.serviceName"})
+@ConditionalOnProperty({"s2s.api.ccdGwSecret","s2s.api.ccdGwServiceName"})
 @EnableFeignClients(basePackages = {"uk.gov.hmcts.reform.em.test.s2s"})
-public class S2sConfiguration {
+public class CcdS2sConfiguration {
 
     @Bean
-    public S2sHelper s2sHelper(
-            @Value("${s2s.api.secret}") String totpSecret,
-            @Value("${s2s.api.serviceName}") String microserviceName,
+    public S2sHelper ccdS2sHelper(
+            @Value("${s2s.api.ccdGwSecret}") String totpSecret,
+            @Value("${s2s.api.ccdGwServiceName}") String microserviceName,
             S2sApi s2sApi) {
         return new S2sHelper(totpSecret,
                 microserviceName,

@@ -1,6 +1,7 @@
 package uk.gov.hmcts.reform.em.test.ccddata;
 
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,7 +10,8 @@ import uk.gov.hmcts.reform.em.test.idam.IdamHelper;
 import uk.gov.hmcts.reform.em.test.s2s.S2sHelper;
 
 @Configuration
-@ConditionalOnProperty({"core_case_data.api.url", "s2s.api.url", "ccd-def.api.url", "idam.api.url"})
+@ConditionalOnProperty({"core_case_data.api.url", "ccd-def.api.url"})
+@ConditionalOnBean(name={"ccdS2sHelper", "idamHelper"})
 public class CcdDataConfiguration {
 
     @Bean

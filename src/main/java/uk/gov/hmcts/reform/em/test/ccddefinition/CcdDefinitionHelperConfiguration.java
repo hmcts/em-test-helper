@@ -2,6 +2,7 @@ package uk.gov.hmcts.reform.em.test.ccddefinition;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import uk.gov.hmcts.reform.em.test.idam.IdamHelper;
@@ -9,6 +10,7 @@ import uk.gov.hmcts.reform.em.test.s2s.S2sHelper;
 
 @Configuration
 @ConditionalOnProperty({"ccd-def.api.url", "s2s.api.url", "idam.api.url"})
+@EnableFeignClients(basePackages = "uk.gov.hmcts.reform.em.test.ccddefinition")
 public class CcdDefinitionHelperConfiguration {
 
     @Bean

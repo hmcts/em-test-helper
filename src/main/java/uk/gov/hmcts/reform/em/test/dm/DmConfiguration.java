@@ -1,5 +1,6 @@
 package uk.gov.hmcts.reform.em.test.dm;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,7 +10,8 @@ import uk.gov.hmcts.reform.document.DocumentUploadClientApi;
 import uk.gov.hmcts.reform.em.test.s2s.S2sHelper;
 
 @Configuration
-@ConditionalOnProperty({"document_management.url", "s2s.api.url"})
+@ConditionalOnProperty(prefix = "document_management", value = "url")
+@ConditionalOnBean(name = {"documentUploadClientApi"})
 public class DmConfiguration {
 
     @Bean

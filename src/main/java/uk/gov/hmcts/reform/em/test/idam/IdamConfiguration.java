@@ -5,13 +5,13 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import uk.gov.hmcts.reform.idam.client.IdamClient;
-import uk.gov.hmcts.reform.idam.client.IdamTestApi;
+import uk.gov.hmcts.reform.em.idam.client.IdamClient;
+import uk.gov.hmcts.reform.em.idam.client.IdamTestApi;
 
 @Configuration
 @ConditionalOnProperty("idam.api.url")
-@ComponentScan(basePackages = "uk.gov.hmcts.reform.idam.client")
-@EnableFeignClients(basePackages = {"uk.gov.hmcts.reform.em.test.idam", "uk.gov.hmcts.reform.idam.client"})
+@ComponentScan(basePackages = "uk.gov.hmcts.reform.em.idam.client")
+@EnableFeignClients(basePackages = {"uk.gov.hmcts.reform.em.test.idam", "uk.gov.hmcts.reform.em.idam.client"})
 public class IdamConfiguration {
 
     @Bean

@@ -1,11 +1,10 @@
 package uk.gov.hmcts.reform.em.test.idam;
 
 import feign.FeignException;
-import uk.gov.hmcts.reform.idam.client.IdamClient;
-import uk.gov.hmcts.reform.idam.client.IdamTestApi;
-import uk.gov.hmcts.reform.idam.client.models.test.CreateUserRequest;
-import uk.gov.hmcts.reform.idam.client.models.test.UserRole;
-
+import uk.gov.hmcts.reform.em.idam.client.IdamClient;
+import uk.gov.hmcts.reform.em.idam.client.IdamTestApi;
+import uk.gov.hmcts.reform.em.idam.client.models.test.CreateUserRequest;
+import uk.gov.hmcts.reform.em.idam.client.models.test.UserRole;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

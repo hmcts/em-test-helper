@@ -5,11 +5,11 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import uk.gov.hmcts.reform.em.idam.client.IdamClient;
+import uk.gov.hmcts.reform.em.idam.client.IdamTestApi;
+import uk.gov.hmcts.reform.em.idam.client.models.UserDetails;
 import uk.gov.hmcts.reform.em.test.idam.DeleteUserApi;
 import uk.gov.hmcts.reform.em.test.idam.IdamHelper;
-import uk.gov.hmcts.reform.idam.client.IdamClient;
-import uk.gov.hmcts.reform.idam.client.IdamTestApi;
-import uk.gov.hmcts.reform.idam.client.models.UserDetails;
 
 import java.util.stream.Collectors;
 import java.util.stream.Stream;

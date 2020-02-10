@@ -6,10 +6,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import uk.gov.hmcts.reform.em.FooConfiguration;
 
 @FeignClient(
     name = "idam-test-api-delete",
-    url = "${idam.api.url}/testing-support"
+    url = "${idam.api.url}/testing-support",
+        configuration = FooConfiguration.class
 )
 @ConditionalOnProperty("idam.api.url")
 public interface DeleteUserApi {

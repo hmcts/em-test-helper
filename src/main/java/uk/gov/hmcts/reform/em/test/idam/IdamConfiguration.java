@@ -7,6 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import uk.gov.hmcts.reform.idam.client.IdamClient;
 import uk.gov.hmcts.reform.idam.client.IdamTestApi;
+import uk.gov.hmcts.reform.idam.client.OAuth2Configuration;
 
 @Configuration
 @ConditionalOnProperty("idam.api.url")
@@ -15,7 +16,9 @@ import uk.gov.hmcts.reform.idam.client.IdamTestApi;
 public class IdamConfiguration {
 
     @Bean
-    IdamHelper idamHelper(IdamClient idamClient, IdamTestApi idamTestApi, DeleteUserApi deleteUserApi) {
-        return new IdamHelper(idamClient, idamTestApi, deleteUserApi);
+    IdamHelper idamHelper(IdamClient idamClient, IdamTestApi idamTestApi, DeleteUserApi deleteUserApi,
+                          OpenIdUserApi openIdUserApi, OpenIdConfiguration openIdConfiguration) {
+        return new IdamHelper(idamClient, idamTestApi, deleteUserApi, openIdUserApi,
+                     openIdConfiguration);
     }
 }

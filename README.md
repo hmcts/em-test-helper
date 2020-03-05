@@ -22,7 +22,7 @@ public class MyTestScenario {
 <pre>
 idam:
   api:
-    url: 'http://localhost:4501'
+    url: 'http://localhost:5000'
   client:
     id: 'webshow'
     secret: 'AAAAAAAAAAAAAAAA'

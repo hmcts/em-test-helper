@@ -7,8 +7,10 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import uk.gov.hmcts.reform.em.test.idam.DeleteUserApi;
 import uk.gov.hmcts.reform.em.test.idam.IdamHelper;
+import uk.gov.hmcts.reform.em.test.idam.OpenIdUserApi;
 import uk.gov.hmcts.reform.idam.client.IdamClient;
 import uk.gov.hmcts.reform.idam.client.IdamTestApi;
+import uk.gov.hmcts.reform.idam.client.OAuth2Configuration;
 import uk.gov.hmcts.reform.idam.client.models.UserDetails;
 
 import java.util.stream.Collectors;
@@ -32,6 +34,12 @@ public class IdamHelperTest {
 
     @Mock
     DeleteUserApi deleteUserApi;
+
+    @Mock
+    OpenIdUserApi openIdUserApi;
+
+    @Mock
+    OAuth2Configuration oauth2Configuration;
 
     @InjectMocks
     private IdamHelper idamHelper;

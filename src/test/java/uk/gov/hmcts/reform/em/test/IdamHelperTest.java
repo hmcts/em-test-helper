@@ -1,16 +1,18 @@
 package uk.gov.hmcts.reform.em.test;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import static org.mockito.ArgumentMatchers.anyString;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
+
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.assertj.core.api.Assertions.assertThat;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import uk.gov.hmcts.reform.em.test.idam.DeleteUserApi;
 import uk.gov.hmcts.reform.em.test.idam.IdamHelper;

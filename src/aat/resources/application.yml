@@ -5,11 +5,13 @@ spring:
 
 idam:
   api:
-    url: 'http://localhost:4501'
+    url: 'http://localhost:5000'
   client:
     id: 'webshow'
     secret: 'AAAAAAAAAAAAAAAA'
     redirect_uri: 'http://localhost:8080/oauth2redirect'
+    grant_type: 'password'
+    scope: 'openid roles profile'
 
 s2s:
   api:

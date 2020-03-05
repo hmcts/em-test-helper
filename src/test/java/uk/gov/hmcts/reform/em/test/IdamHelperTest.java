@@ -1,5 +1,14 @@
 package uk.gov.hmcts.reform.em.test;
 
+
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -7,19 +16,16 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import uk.gov.hmcts.reform.em.test.idam.DeleteUserApi;
 import uk.gov.hmcts.reform.em.test.idam.IdamHelper;
+import uk.gov.hmcts.reform.em.test.idam.OpenIdConfiguration;
+import uk.gov.hmcts.reform.em.test.idam.OpenIdUserApi;
+import uk.gov.hmcts.reform.em.test.idam.client.models.OpenIdAuthUserRequest;
+import uk.gov.hmcts.reform.em.test.idam.client.models.OpenIdAuthUserResponse;
 import uk.gov.hmcts.reform.idam.client.IdamClient;
 import uk.gov.hmcts.reform.idam.client.IdamTestApi;
 import uk.gov.hmcts.reform.idam.client.models.UserDetails;
 
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class IdamHelperTest {
@@ -32,6 +38,18 @@ public class IdamHelperTest {
 
     @Mock
     DeleteUserApi deleteUserApi;
+
+    @Mock
+    OpenIdUserApi openIdUserApi;
+
+    @Mock
+    OpenIdConfiguration openIdConfiguration;
+
+    @Mock
+    OpenIdAuthUserRequest openIdAuthUserRequest;
+
+    @Mock
+    OpenIdAuthUserResponse openIdAuthUserResponse;
 
     @InjectMocks
     private IdamHelper idamHelper;
@@ -47,8 +65,9 @@ public class IdamHelperTest {
     public void testGetUserId() {
         UserDetails userDetailsMock = mock(UserDetails.class);
         when(userDetailsMock.getId()).thenReturn("id");
-        when(idamClient.authenticateUser(any(), any())).thenReturn("a");
-        when(idamClient.getUserDetails("a")).thenReturn(userDetailsMock);
+        when(openIdAuthUserResponse.getAccessToken()).thenReturn("b");
+        when(openIdUserApi.authenticateUser(anyString(),any())).thenReturn(openIdAuthUserResponse);
+        when(idamClient.getUserDetails("Bearer b")).thenReturn(userDetailsMock);
         assertThat(idamHelper.getUserId("x")).isEqualTo("id");
     }
 
@@ -60,11 +79,12 @@ public class IdamHelperTest {
 
     @Test
     public void testAuthenticateUser() {
-        when(idamClient.authenticateUser(any(), any())).thenReturn("a");
-        assertThat(idamHelper.authenticateUser("x")).isEqualTo("a");
-        assertThat(idamHelper.authenticateUser("x")).isEqualTo("a");
-        assertThat(idamHelper.authenticateUser("x")).isEqualTo("a");
-        verify(idamClient, times(1)).authenticateUser(any(), any());
+        when(openIdAuthUserResponse.getAccessToken()).thenReturn("b");
+        when(openIdUserApi.authenticateUser(anyString(),any())).thenReturn(openIdAuthUserResponse);
+        assertThat(idamHelper.authenticateUser("x")).isEqualTo("Bearer b");
+        assertThat(idamHelper.authenticateUser("x")).isEqualTo("Bearer b");
+        assertThat(idamHelper.authenticateUser("x")).isEqualTo("Bearer b");
+        verify(openIdUserApi, times(1)).authenticateUser(anyString(),any());
     }
 
 

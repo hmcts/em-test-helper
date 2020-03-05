@@ -9,8 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @FeignClient(
     name = "idam-test-api-delete",
-    url = "${idam.api.url}/testing-support",
-        configuration = IdamConfiguration.class
+    url = "${idam.api.url}/testing-support"
 )
 @ConditionalOnProperty("idam.api.url")
 public interface DeleteUserApi {

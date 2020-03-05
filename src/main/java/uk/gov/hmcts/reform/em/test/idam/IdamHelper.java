@@ -69,12 +69,12 @@ public class IdamHelper {
         return idamTokens.get(username);
     }
 
-    public String authenticateOpenIdUser(String username, String password) {
+    private String authenticateOpenIdUser(String username, String password) {
         String authorisation = username + ":" + password;
         String base64Authorisation = Base64.getEncoder().encodeToString(authorisation.getBytes());
         OpenIdAuthUserResponse openIdAuthUserResponse = openIdUserApi.authenticateUser("Basic " + base64Authorisation,
-                new OpenIdAuthUserRequest(openIdConfiguration.getGrantType(), openIdConfiguration.getClientId(), openIdConfiguration.getRedirectUri(),
-                        openIdConfiguration.getScope()));
+                new OpenIdAuthUserRequest(openIdConfiguration.getGrantType(), openIdConfiguration.getClientId(),
+                        openIdConfiguration.getRedirectUri(), openIdConfiguration.getScope()));
         return "Bearer " + openIdAuthUserResponse.getAccessToken();
     }
 

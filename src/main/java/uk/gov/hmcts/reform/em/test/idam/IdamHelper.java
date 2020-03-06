@@ -8,7 +8,6 @@ import uk.gov.hmcts.reform.idam.client.IdamTestApi;
 import uk.gov.hmcts.reform.idam.client.models.test.CreateUserRequest;
 import uk.gov.hmcts.reform.idam.client.models.test.UserRole;
 
-import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

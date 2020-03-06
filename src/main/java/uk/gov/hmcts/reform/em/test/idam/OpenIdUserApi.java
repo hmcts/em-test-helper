@@ -19,7 +19,6 @@ public interface OpenIdUserApi {
             value = {"/o/token"},
             consumes = {"application/x-www-form-urlencoded"}
     )
-    OpenIdAuthUserResponse authenticateUser(@RequestHeader("Authorization") String authorisation,
-                                            @RequestBody OpenIdAuthUserRequest openIdAuthUserRequest);
+    OpenIdAuthUserResponse authenticateUser(@RequestBody OpenIdAuthUserRequest openIdAuthUserRequest);
 
 }

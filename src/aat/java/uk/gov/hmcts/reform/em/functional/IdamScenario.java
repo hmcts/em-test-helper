@@ -23,7 +23,7 @@ public class IdamScenario {
     @Autowired
     IdamHelper idamHelper;
 
-    @Test(expected = FeignException.Unauthorized.class)
+    @Test(expected = FeignException.BadRequest.class)
     public void testCreationAndDeletion() {
         idamHelper.createUser("a@b.com", Stream.of("caseworker").collect(Collectors.toList()));
         assertThat(idamHelper.authenticateUser("a@b.com")).isNotEmpty();

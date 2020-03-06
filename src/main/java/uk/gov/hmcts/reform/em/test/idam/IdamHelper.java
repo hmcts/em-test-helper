@@ -8,7 +8,6 @@ import uk.gov.hmcts.reform.idam.client.IdamTestApi;
 import uk.gov.hmcts.reform.idam.client.models.test.CreateUserRequest;
 import uk.gov.hmcts.reform.idam.client.models.test.UserRole;
 
-import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -70,11 +69,17 @@ public class IdamHelper {
     }
 
     private String authenticateOpenIdUser(String username, String password) {
-        String authorisation = username + ":" + password;
-        String base64Authorisation = Base64.getEncoder().encodeToString(authorisation.getBytes());
-        OpenIdAuthUserResponse openIdAuthUserResponse = openIdUserApi.authenticateUser("Basic " + base64Authorisation,
-                new OpenIdAuthUserRequest(openIdConfiguration.getGrantType(), openIdConfiguration.getClientId(),
-                        openIdConfiguration.getRedirectUri(), openIdConfiguration.getScope()));
+
+        OpenIdAuthUserRequest openIdAuthUserRequest = OpenIdAuthUserRequest.builder()
+                .client_id(openIdConfiguration.getClientId())
+                .client_secret(openIdConfiguration.getClient_secret())
+                .grant_type(openIdConfiguration.getGrantType())
+                .redirect_uri(openIdConfiguration.getRedirectUri())
+                .scope(openIdConfiguration.getScope())
+                .username(username)
+                .password(password)
+                .build();
+        OpenIdAuthUserResponse openIdAuthUserResponse = openIdUserApi.authenticateUser(openIdAuthUserRequest);
         return "Bearer " + openIdAuthUserResponse.getAccessToken();
     }
 

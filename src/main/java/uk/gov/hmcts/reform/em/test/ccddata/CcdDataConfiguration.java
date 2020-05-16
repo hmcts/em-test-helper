@@ -11,7 +11,7 @@ import uk.gov.hmcts.reform.em.test.s2s.S2sHelper;
 
 @Configuration
 @ConditionalOnProperty({"core_case_data.api.url", "ccd-def.api.url"})
-@EnableFeignClients(basePackages = {"uk.gov.hmcts.reform.em.test.ccddata","uk.gov.hmcts.reform.em.test.s2s"})
+@EnableFeignClients(basePackages = {"uk.gov.hmcts.reform.ccd.client"})
 public class CcdDataConfiguration {
 
     @Bean

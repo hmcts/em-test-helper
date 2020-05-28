@@ -175,7 +175,7 @@ dependencyManagement {
 }
 
 dependencies {
-    compile "uk.gov.hmcts.reform:idam-client:1.2.2"
+    compile "uk.gov.hmcts.reform:idam-client:1.5.2"
     compile "uk.gov.hmcts.reform:core-case-data-store-client:4.6.4"
     compile "uk.gov.hmcts.reform:document-management-client:6.0.0"
 

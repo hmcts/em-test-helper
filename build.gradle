@@ -176,7 +176,7 @@ dependencyManagement {
 
 dependencies {
     compile "uk.gov.hmcts.reform:idam-client:1.2.2"
-    compile "uk.gov.hmcts.reform:core-case-data-store-client:4.6.4"
+    compile "uk.gov.hmcts.reform:core-case-data-store-client:v4.7.1"
     compile "uk.gov.hmcts.reform:document-management-client:6.0.0"
 
     compile group: 'com.warrenstrange', name: 'googleauth', version: '1.4.0'

@@ -1,14 +1,13 @@
 plugins {
     id 'checkstyle'
-    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
-    id 'org.springframework.boot' version '2.2.0.RELEASE'
-    id 'com.jfrog.bintray' version '1.8.4'
-    id 'com.github.ben-manes.versions' version '0.27.0'
+    id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+    id 'org.springframework.boot' version '2.3.4.RELEASE'
+    id 'com.jfrog.bintray' version '1.8.5'
+    id 'com.github.ben-manes.versions' version '0.36.0'
     id 'java-library'
     id 'maven'
     id 'maven-publish'
-    id 'net.ltgt.apt' version '0.21'
-    id 'io.franzbecker.gradle-lombok' version '1.14'
+    id 'io.franzbecker.gradle-lombok' version '4.0.0'
 }
 
 apply plugin: 'idea'
@@ -17,20 +16,20 @@ def buildNumber = System.getenv("RELEASE_VERSION")?.replace("refs/tags/", "") ?:
 
 group 'uk.gov.hmcts.reform'
 version buildNumber
+sourceCompatibility = 11
+targetCompatibility = 11
 
-dependencyUpdates.resolutionStrategy {
-  componentSelection { rules ->
-    rules.all {
-      def isNonStable = { String version ->
-        ['alpha', 'beta', 'rc', 'cr', 'm', 'preview', 'b', 'ea'].any { qualifier ->
-          version ==~ /(?i).*[.-]\$qualifier[.\\d-+]*/
+dependencyUpdates.resolutionStrategy = {
+    componentSelection { rules ->
+        rules.all { ComponentSelection selection ->
+            boolean rejected = ['alpha', 'beta', 'rc', 'cr', 'm'].any { qualifier ->
+                selection.candidate.version ==~ /(?i).*[.-]${qualifier}[.\d-]*/
+            }
+            if (rejected) {
+                selection.reject('Release candidate')
+            }
         }
-      }
-      if (isNonStable(candidate.version) && !isNonStable(currentVersion)) {
-        selection.reject('Release candidate')
-      }
     }
-  }
 }
 
 configurations {
@@ -54,15 +53,10 @@ sourceSets {
     }
 }
 
-
 checkstyle {
-    maxWarnings = 0
-    toolVersion = '8.22'
-
+    //    ignoreFailures = true
+    sourceSets = []
 }
-
-sourceCompatibility = 1.8
-
 compileJava {
     options.compilerArgs << '-parameters' << '-Xlint:deprecation'
 }
@@ -159,7 +153,7 @@ bintray {
 }
 
 ext {
-    lombokVersion = '1.18.8'
+    lombokVersion = '1.18.16'
     springCloudVersion = 'Greenwich.SR3'
     feignVersion = '10.6.0'
     feignFormVersion = '3.8.0'
@@ -175,11 +169,11 @@ dependencyManagement {
 }
 
 dependencies {
-    compile "uk.gov.hmcts.reform:idam-client:1.2.2"
-    compile "uk.gov.hmcts.reform:core-case-data-store-client:4.7.3"
-    compile "uk.gov.hmcts.reform:document-management-client:6.0.0"
+    compile "uk.gov.hmcts.reform:idam-client:1.5.5"
+    compile "uk.gov.hmcts.reform:core-case-data-store-client:4.7.5"
+    compile "uk.gov.hmcts.reform:document-management-client:7.0.0"
 
-    compile group: 'com.warrenstrange', name: 'googleauth', version: '1.4.0'
+    compile group: 'com.warrenstrange', name: 'googleauth', version: '1.5.0'
 
     api group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign'
     api group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
@@ -187,9 +181,9 @@ dependencies {
     api group: 'io.github.openfeign', name: 'feign-jackson', version: feignVersion
     api group: 'io.github.openfeign', name: 'feign-httpclient', version: feignVersion
     api group: 'io.github.openfeign.form', name: 'feign-form', version: feignFormVersion
-    api group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jdk8'
+    api group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jdk8', version: '2.11.3'
 
-    compileOnly group: 'org.projectlombok', name: 'lombok', version: lombokVersion
+    compile group: 'org.projectlombok', name: 'lombok', version: lombokVersion
     annotationProcessor group: 'org.projectlombok', name: 'lombok', version: lombokVersion
 
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.5.2'
@@ -197,10 +191,10 @@ dependencies {
 
     testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test'
 
-    testCompile group: 'com.github.tomakehurst', name:'wiremock-jre8', version: wiremockVersion
-    testCompile group: 'org.mockito', name: 'mockito-core', version: '3.1.0'
+    testCompile group: 'com.github.tomakehurst', name:'wiremock-jre8', version: '2.27.2'
+    testCompile group: 'org.mockito', name: 'mockito-core', version: '3.6.0'
 
-    testImplementation group: 'org.springframework.cloud', name: 'spring-cloud-contract-wiremock'
+    testImplementation group: 'org.springframework.cloud', name: 'spring-cloud-contract-wiremock', version: '2.2.5.RELEASE'
 }
 
 wrapper {

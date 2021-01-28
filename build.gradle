@@ -194,7 +194,7 @@ dependencies {
     testCompile group: 'com.github.tomakehurst', name:'wiremock-jre8', version: '2.27.2'
     testCompile group: 'org.mockito', name: 'mockito-core', version: '3.7.7'
 
-    testImplementation group: 'org.springframework.cloud', name: 'spring-cloud-contract-wiremock', version: '3.0.0'
+    testImplementation group: 'org.springframework.cloud', name: 'spring-cloud-contract-wiremock', version: '3.0.1'
 }
 
 wrapper {

@@ -1,0 +1,21 @@
+version: 2
+updates:
+- package-ecosystem: gradle
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: org.springframework.boot
+    versions:
+    - 2.4.3
+    - 2.4.4
+  - dependency-name: com.fasterxml.jackson.datatype:jackson-datatype-jdk8
+    versions:
+    - 2.12.2
+  - dependency-name: org.springframework.cloud:spring-cloud-dependencies
+    versions:
+    - Hoxton.SR10
+  - dependency-name: org.springframework.cloud:spring-cloud-contract-wiremock
+    versions:
+    - 3.0.1

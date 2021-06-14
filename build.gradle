@@ -178,7 +178,7 @@ dependencies {
     testCompile group: 'org.mockito', name: 'mockito-core', version: '3.11.0'
 
     testImplementation group: 'org.springframework.cloud', name: 'spring-cloud-contract-wiremock', version: '3.0.0'
-    compile group: 'junit', name: 'junit', version: '4.13'
+    compile group: 'junit', name: 'junit', version: '4.13.2'
 }
 
 wrapper {

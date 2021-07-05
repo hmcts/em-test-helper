@@ -3,7 +3,7 @@ updates:
 - package-ecosystem: gradle
   directory: "/"
   schedule:
-    interval: daily
+    interval: weekly
   open-pull-requests-limit: 10
   ignore:
   - dependency-name: org.springframework.boot
@@ -19,3 +19,6 @@ updates:
   - dependency-name: org.springframework.cloud:spring-cloud-contract-wiremock
     versions:
     - 3.0.1
+  - dependency-name: uk.gov.hmcts.reform:idam-client
+    versions:
+    - 2.0.0

@@ -1,9 +1,8 @@
 plugins {
     id 'checkstyle'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
-    id 'org.springframework.boot' version '2.3.4.RELEASE'
-    id 'com.jfrog.bintray' version '1.8.5'
-    id 'com.github.ben-manes.versions' version '0.36.0'
+    id 'org.springframework.boot' version '2.4.5'
+    id 'com.github.ben-manes.versions' version '0.39.0'
     id 'java-library'
     id 'maven'
     id 'maven-publish'
@@ -66,8 +65,15 @@ compileTestJava {
 }
 
 repositories {
+    mavenCentral()
     mavenLocal()
     jcenter()
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+
+    maven {
+        url 'https://repo.spring.io/libs-milestone'
+    }
 }
 
 jar {
@@ -135,66 +141,44 @@ publishing {
     }
 }
 
-bintray {
-    user = System.getenv('BINTRAY_USER')
-    key = System.getenv('BINTRAY_KEY')
-    publications = ['Main']
-    publish = true
-    pkg {
-        repo = 'hmcts-maven'
-        name = 'idam-client'
-        userOrg = 'hmcts'
-        licenses = ['MIT']
-        vcsUrl = gitRepo
-        version {
-            name = project.version
-        }
-    }
-}
-
 ext {
-    lombokVersion = '1.18.16'
-    springCloudVersion = 'Hoxton.SR9'
-    feignVersion = '10.6.0'
+    lombokVersion = '1.18.20'
+    feignVersion = '11.2'
     feignFormVersion = '3.8.0'
     wiremockVersion = '2.24.1'
 }
 
-ext["spring-cloud-openfeign.version"] = "2.1.2.RELEASE"
-
-dependencyManagement {
-    imports {
-        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
-    }
-}
+ext["spring-cloud-openfeign.version"] = "3.0.3"
 
 dependencies {
-    compile "uk.gov.hmcts.reform:idam-client:1.5.5"
-    compile "uk.gov.hmcts.reform:core-case-data-store-client:4.7.5"
+    implementation("org.springframework.cloud:spring-cloud-starter-bootstrap:3.0.1")
+    compile "uk.gov.hmcts.reform:idam-client:2.0.0"
+    compile "uk.gov.hmcts.reform:core-case-data-store-client:4.7.6"
     compile "uk.gov.hmcts.reform:document-management-client:7.0.0"
 
     compile group: 'com.warrenstrange', name: 'googleauth', version: '1.5.0'
 
-    api group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign'
-    api group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
+    api group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '3.0.1'
+    api group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '2.4.5'
     compile "org.springframework.boot:spring-boot-starter-test"
     api group: 'io.github.openfeign', name: 'feign-jackson', version: feignVersion
     api group: 'io.github.openfeign', name: 'feign-httpclient', version: feignVersion
     api group: 'io.github.openfeign.form', name: 'feign-form', version: feignFormVersion
-    api group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jdk8', version: '2.12.1'
+    api group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jdk8', version: '2.12.3'
 
     compile group: 'org.projectlombok', name: 'lombok', version: lombokVersion
     annotationProcessor group: 'org.projectlombok', name: 'lombok', version: lombokVersion
 
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.5.2'
-    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.5.2'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.6.3'
+    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.6.3'
 
     testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test'
 
-    testCompile group: 'com.github.tomakehurst', name:'wiremock-jre8', version: '2.27.2'
-    testCompile group: 'org.mockito', name: 'mockito-core', version: '3.7.7'
+    testCompile group: 'com.github.tomakehurst', name:'wiremock-jre8', version: '2.28.1'
+    testCompile group: 'org.mockito', name: 'mockito-core', version: '3.11.0'
 
     testImplementation group: 'org.springframework.cloud', name: 'spring-cloud-contract-wiremock', version: '3.0.0'
+    compile group: 'junit', name: 'junit', version: '4.13'
 }
 
 wrapper {
@@ -227,21 +211,4 @@ task functional(type: Test) {
     setTestClassesDirs(sourceSets.aat.output.classesDirs)
     setClasspath(sourceSets.aat.runtimeClasspath)
     include "uk/gov/hmcts/reform/em/functional/**"
-}
-
-bintray {
-    user = System.getenv('BINTRAY_USER')
-    key = System.getenv('BINTRAY_KEY')
-    publications = ['Main']
-    publish = true
-    pkg {
-        repo = 'hmcts-maven'
-        name = 'em-test-helper'
-        userOrg = 'hmcts'
-        licenses = ['MIT']
-        vcsUrl = gitRepo
-        version {
-            name = project.version
-        }
-    }
 }

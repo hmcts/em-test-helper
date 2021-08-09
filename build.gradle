@@ -68,12 +68,7 @@ repositories {
     mavenCentral()
     mavenLocal()
     jcenter()
-    mavenCentral()
     maven { url 'https://jitpack.io' }
-
-    maven {
-        url 'https://repo.spring.io/libs-milestone'
-    }
 }
 
 jar {
@@ -88,7 +83,7 @@ task printVersion {
     }
 }
 
-def gitRepo = "https://github.com/hmcts/test-helper"
+def gitRepo = "https://github.com/hmcts/em-test-helper"
 
 def pomConfig = {
     licenses {
@@ -100,7 +95,7 @@ def pomConfig = {
     }
 
     scm {
-        url "https://github.com/hmcts/test-helper"
+        url "https://github.com/hmcts/em-test-helper"
     }
 }
 
@@ -155,7 +150,8 @@ dependencies {
     compile "uk.gov.hmcts.reform:idam-client:2.0.0"
     compile "uk.gov.hmcts.reform:core-case-data-store-client:4.7.6"
     compile "uk.gov.hmcts.reform:document-management-client:7.0.0"
-
+    compile 'com.github.hmcts:ccd-case-document-am-client:1.7.1'
+    
     compile group: 'com.warrenstrange', name: 'googleauth', version: '1.5.0'
 
     api group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '3.0.1'

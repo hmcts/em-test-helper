@@ -15,6 +15,7 @@ services:
       - microserviceKeys_ccd_definition=AAAAAAAAAAAAAAAA
       - microserviceKeys_ccd_admin=AAAAAAAAAAAAAAAA
       - microserviceKeys_fpl_case_service=AAAAAAAAAAAAAAAA
+      - microserviceKeys_ccd_case_document_am_api=AAAAAAAAAAAAAAAA
       #      logging env vars
       - JSON_CONSOLE_PRETTY_PRINT=false
       - REFORM_SERVICE_TYPE=java
@@ -27,6 +28,7 @@ services:
       - PACKAGES_NAME=service-auth-provider-api
       - PACKAGES_VERSION=unkown
       - TESTING_SUPPORT_ENABLED=true
+      - JAVA_TOOL_OPTIONS=-Xms128m -Xmx512m -XX:MaxPermSize=512m
     ports:
       - 4502:8489
 
@@ -103,9 +105,9 @@ services:
       - IDAM_SUPERUSER_EMAIL
       - IDAM_SECRET_KEY=AAAAAAAAAAAAAAAA
       - GOV_NOTIFY_API_KEY
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://dm-store-db:5432/evidence
-      - SPRING_DATASOURCE_USERNAME=evidence
-      - SPRING_DATASOURCE_PASSWORD=evidence
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://shared-database:5432/evidence
+      - SPRING_DATASOURCE_USERNAME=shared
+      - SPRING_DATASOURCE_PASSWORD=shared
       - SPRING_PROFILES_ACTIVE=dev
       - ENABLE_AZURE_STORAGE_CONTAINER=true
       - ENABLE_POSTGRES_BLOB_STORAGE=false
@@ -116,7 +118,7 @@ services:
       - IDAM_TESTING_SUPPORT_ENABLED=true
       - LOGGING_LEVEL_UK_GOV_HMCTS_IDAM=DEBUG
       - IDAM_S2S_BASE_URI=http://service-auth-provider-api:8489
-      - S2S_NAMES_WHITELIST=em_npa_app,sscs,divorce,ccd,em_gw,ccd_gw,em_stitching_api,em_ccd_orchestrator
+      - S2S_NAMES_WHITELIST=em_npa_app,sscs,divorce,ccd,em_gw,ccd_gw,em_stitching_api,em_ccd_orchestrator,ccd_case_document_am_api
       - http_proxy=
       - https_proxy=
       - no_proxy=
@@ -134,11 +136,9 @@ services:
       #      debug mode
       - JAVA_TOOL_OPTIONS=-Xms128m -Xmx512m -XX:MaxPermSize=512m
     links:
-      - dm-store-db
       - service-auth-provider-api
       - make-container-call
     depends_on:
-      - dm-store-db
       - service-auth-provider-api
       - make-container-call
     ports:
@@ -161,23 +161,13 @@ services:
     volumes:
       - ccd-docker-azure-blob-data:/opt/azurite/folder
 
-  dm-store-db:
-    image: postgres
-    restart: always
-    environment:
-      - POSTGRES_DB=evidence
-      - POSTGRES_USER=evidence
-      - POSTGRES_PASSWORD=evidence
-    ports:
-      - 5433:5432
-
   ccd-user-profile-api:
     image: hmctspublic.azurecr.io/ccd/user-profile-api:latest
     environment:
-      USER_PROFILE_DB_HOST: em-shared-db
+      USER_PROFILE_DB_HOST: shared-database
       USER_PROFILE_DB_PORT: 5432
-      USER_PROFILE_DB_USERNAME: ccd
-      USER_PROFILE_DB_PASSWORD: ccd
+      USER_PROFILE_DB_USERNAME: shared
+      USER_PROFILE_DB_PASSWORD: shared
       USER_PROFILE_DB_USE_SSL: "false"
       USER_PROFILE_S2S_AUTHORISED_SERVICES: ccd_data,ccd_definition,ccd_admin
       IDAM_S2S_URL: http://service-auth-provider-api:8489
@@ -185,26 +175,28 @@ services:
       REFORM_TEAM: ccd
       REFORM_ENVIRONMENT: local
       APPINSIGHTS_INSTRUMENTATIONKEY: key
+      JAVA_TOOL_OPTIONS: -Xms128m -Xmx512m -XX:MaxPermSize=512m
     ports:
       - 4453:4453
     depends_on:
-      - em-shared-db
+      - shared-database
     links:
-      - em-shared-db
+      - shared-database
       - service-auth-provider-api
 
   ccd-definition-store-api:
     image: hmctspublic.azurecr.io/ccd/definition-store-api:latest
     environment:
-      DEFINITION_STORE_DB_HOST: em-shared-db
+      DEFINITION_STORE_DB_HOST: shared-database
       DEFINITION_STORE_DB_PORT: 5432
-      DEFINITION_STORE_DB_USERNAME: ccd
-      DEFINITION_STORE_DB_PASSWORD: ccd
+      DEFINITION_STORE_DB_USERNAME: shared
+      DEFINITION_STORE_DB_PASSWORD: shared
       DEFINITION_STORE_DB_USE_SSL: "false"
       DEFINITION_STORE_IDAM_KEY: AAAAAAAAAAAAAAAA
       DEFINITION_STORE_S2S_AUTHORISED_SERVICES: ccd_data,ccd_gw,ccd_admin
       USER_PROFILE_HOST: http://ccd-user-profile-api:4453
-      IDAM_USER_URL: http://idam-api:8080
+      IDAM_USER_URL: http://idam-api:5000
+      IDAM_OIDC_URL: http://idam-api:5000
       IDAM_S2S_URL: http://service-auth-provider-api:8489
       REFORM_SERVICE_NAME: ccd-definition-store-api
       REFORM_TEAM: ccd
@@ -216,10 +208,10 @@ services:
     ports:
       - 4451:4451
     depends_on:
-      - em-shared-db
+      - shared-database
       - ccd-user-profile-api
     links:
-      - em-shared-db
+      - shared-database
       - ccd-user-profile-api
       - idam-api
       - service-auth-provider-api
@@ -227,17 +219,18 @@ services:
   ccd-data-store-api:
     image: hmctspublic.azurecr.io/ccd/data-store-api:latest
     environment:
-      DATA_STORE_DB_HOST: em-shared-db
+      DATA_STORE_DB_HOST: shared-database
       DATA_STORE_DB_PORT: 5432
-      DATA_STORE_DB_USERNAME: ccd
-      DATA_STORE_DB_PASSWORD: ccd
+      DATA_STORE_DB_USERNAME: shared
+      DATA_STORE_DB_PASSWORD: shared
       DATA_STORE_DB_USE_SSL: "false"
       DATA_STORE_IDAM_KEY: AAAAAAAAAAAAAAAA
       DATA_STORE_TOKEN_SECRET: iuasbcuasdcbasdgcasdgcuysachjsacyasdgjcgasdj
-      DATA_STORE_S2S_AUTHORISED_SERVICES: ccd_gw,fpl_case_service,ccd_data,ccd_ps,em_ccd_orchestrator
+      DATA_STORE_S2S_AUTHORISED_SERVICES: ccd_gw,fpl_case_service,ccd_data,ccd_ps,em_ccd_orchestrator,ccd_case_document_am_api
       DEFINITION_STORE_HOST: http://ccd-definition-store-api:4451
       USER_PROFILE_HOST: http://ccd-user-profile-api:4453
-      IDAM_USER_URL: http://idam-api:8080
+      IDAM_USER_URL: http://idam-api:5000
+      IDAM_OIDC_URL: http://idam-api:5000
       IDAM_S2S_URL: http://service-auth-provider-api:8489
       REFORM_SERVICE_NAME: ccd-data-store-api
       REFORM_TEAM: ccd
@@ -246,33 +239,30 @@ services:
       ELASTIC_SEARCH_ENABLED: "false"
       ELASTIC_SEARCH_HOSTS: ccd-elasticsearch:9200
       ELASTIC_SEARCH_DATA_NODES_HOSTS: "http://ccd-elasticsearch:9200"
-      CCD_DM_DOMAIN: http://dm-store:8080
+      CCD_DM_DOMAIN: http://dm-store:4603
     ports:
       - 4452:4452
     depends_on:
-      - em-shared-db
+      - shared-database
       - ccd-user-profile-api
       - ccd-definition-store-api
     links:
-      - em-shared-db
+      - shared-database
       - ccd-user-profile-api
       - ccd-definition-store-api
       - idam-api
       - service-auth-provider-api
 
-  em-shared-db:
-    build: ./database
-    healthcheck:
-      interval: 10s
-      timeout: 10s
-      retries: 10
-    environment:
-      DB_USERNAME: ccd
-      DB_PASSWORD: ccd
-    ports:
-      - 5001:5432
+  shared-database:
+    image: postgres
     volumes:
-      - em-shared-db:/var/lib/postgresql/data
+      - ./database:/docker-entrypoint-initdb.d
+    environment:
+      - POSTGRES_MULTIPLE_DATABASES=evidence,anno,emnpa,idam,ccd_data,ccd_user_profile,ccd_definition,ccd_definition_designer
+      - POSTGRES_USER=shared
+      - POSTGRES_PASSWORD=shared
+    ports:
+      - 5434:5432
 
   ccd-case-management-web:
     image: hmctspublic.azurecr.io/ccd/case-management-web:latest
@@ -284,7 +274,7 @@ services:
       DM_GATEWAY_BASE_URL: https://api-gateway.dev.dm.reform.hmcts.net
       OAUTH2_CLIENT_ID: ccd_gateway
       DM_URL: http://localhost:3453/documents
-      DM_URL_REMOTE: http://dm-store:8080/documents
+      DM_URL_REMOTE: http://dm-store:4603/documents
     ports:
       - 3451:3451
     depends_on:
@@ -302,7 +292,7 @@ services:
       IDAM_OAUTH2_CLIENT_ID: ccd_gateway
       IDAM_OAUTH2_CLIENT_SECRET: AAAAAAAAAAAAAAAA
       IDAM_OAUTH2_TOKEN_ENDPOINT: http://idam-api:8080/oauth2/token
-      PROXY_DOCUMENT_MANAGEMENT: http://dm-store:8080
+      PROXY_DOCUMENT_MANAGEMENT: http://dm-store:4603
       ADDRESS_LOOKUP_TOKEN:
       PROXY_AGGREGATED: http://ccd-data-store-api:4452
       PROXY_DATA: http://ccd-data-store-api:4452
@@ -317,6 +307,31 @@ services:
       - ccd-definition-store-api
       - ccd-data-store-api
       - dm-store
+
+  ccd-case-document-am-api:
+    image: hmctspublic.azurecr.io/ccd/case-document-am-api:latest
+    environment:
+      CASE_DOCUMENT_AM_API_S2S_SECRET: AAAAAAAAAAAAAAAA
+      CASE_DOCUMENT_S2S_AUTHORISED_SERVICES: ccd_case_document_am_api,ccd_gw,xui_webapp,ccd_data,bulk_scan_processor,em_gw
+      IDAM_API_URL: http://idam-api:5000
+      IDAM_OIDC_URL: http://idam-api:5000
+      S2S_URL: http://service-auth-provider-api:8489
+      DM_STORE_BASE_URL: http://dm-store:8080
+      CCD_DATA_STORE_API_BASE_URL: http://ccd-data-store-api:4452
+      REFORM_SERVICE_NAME: ccd-case-document-am-api
+      REFORM_TEAM: ccd
+      REFORM_ENVIRONMENT: local
+      APPINSIGHTS_INSTRUMENTATIONKEY: key
+      DOCUMENT_TTL: 3600000
+      JAVA_TOOL_OPTIONS: -Xms128m -Xmx512m -XX:MaxPermSize=512m
+    ports:
+      - 4455:4455
+      # Uncomment this and the JAVA_TOOL_OPTIONS flag for JVM debugging
+      # 5005:5005
+    depends_on:
+      - ccd-data-store-api
+      - dm-store
+      - service-auth-provider-api
 
   fr-am:
     image: hmctsprivate.azurecr.io/idam/idam-fr-am:latest
@@ -347,5 +362,4 @@ services:
       - 5432:5432
 
 volumes:
-  em-shared-db:
   ccd-docker-azure-blob-data:

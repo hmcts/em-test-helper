@@ -17,7 +17,7 @@ s2s:
   api:
     url: 'http://localhost:4502'
     secret: 'AAAAAAAAAAAAAAAA'
-    serviceName: 'ccd_gw'
+    serviceName: 'em_gw'
     ccdGwSecret: 'AAAAAAAAAAAAAAAA'
     ccdGwServiceName: 'ccd_gw'
 

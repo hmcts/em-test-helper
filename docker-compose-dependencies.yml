@@ -12,6 +12,7 @@ services:
       - microserviceKeys_em_ccd_orchestrator=AAAAAAAAAAAAAAAA
       - microserviceKeys_ccd_data=AAAAAAAAAAAAAAAA
       - microserviceKeys_ccd_gw=AAAAAAAAAAAAAAAA
+      - microserviceKeys_xui_webapp=AAAAAAAAAAAAAAAA
       - microserviceKeys_ccd_definition=AAAAAAAAAAAAAAAA
       - microserviceKeys_ccd_admin=AAAAAAAAAAAAAAAA
       - microserviceKeys_fpl_case_service=AAAAAAAAAAAAAAAA
@@ -169,7 +170,7 @@ services:
       USER_PROFILE_DB_USERNAME: shared
       USER_PROFILE_DB_PASSWORD: shared
       USER_PROFILE_DB_USE_SSL: "false"
-      USER_PROFILE_S2S_AUTHORISED_SERVICES: ccd_data,ccd_definition,ccd_admin
+      USER_PROFILE_S2S_AUTHORISED_SERVICES: ccd_data,ccd_definition,ccd_admin,xui_webapp
       IDAM_S2S_URL: http://service-auth-provider-api:8489
       REFORM_SERVICE_NAME: ccd-user-profile-api
       REFORM_TEAM: ccd
@@ -226,7 +227,7 @@ services:
       DATA_STORE_DB_USE_SSL: "false"
       DATA_STORE_IDAM_KEY: AAAAAAAAAAAAAAAA
       DATA_STORE_TOKEN_SECRET: iuasbcuasdcbasdgcasdgcuysachjsacyasdgjcgasdj
-      DATA_STORE_S2S_AUTHORISED_SERVICES: ccd_gw,fpl_case_service,ccd_data,ccd_ps,em_ccd_orchestrator,ccd_case_document_am_api
+      DATA_STORE_S2S_AUTHORISED_SERVICES: ccd_gw,fpl_case_service,ccd_data,ccd_ps,em_ccd_orchestrator,ccd_case_document_am_api,xui_webapp
       DEFINITION_STORE_HOST: http://ccd-definition-store-api:4451
       USER_PROFILE_HOST: http://ccd-user-profile-api:4453
       IDAM_USER_URL: http://idam-api:5000
@@ -240,6 +241,7 @@ services:
       ELASTIC_SEARCH_HOSTS: ccd-elasticsearch:9200
       ELASTIC_SEARCH_DATA_NODES_HOSTS: "http://ccd-elasticsearch:9200"
       CCD_DM_DOMAIN: http://dm-store:4603
+      CASE_DOCUMENT_AM_URL: http://ccd-case-document-am-api:4455
     ports:
       - 4452:4452
     depends_on:

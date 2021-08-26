@@ -14,7 +14,7 @@ public class CdamConfiguration {
 
     @Bean
     public CdamHelper cdamHelper(CaseDocumentClientApi caseDocumentClientApi,
-                                 @Qualifier("ccdS2sHelper") S2sHelper s2sHelper, IdamHelper idamHelper) {
+                                 @Qualifier("xuiS2sHelper") S2sHelper s2sHelper, IdamHelper idamHelper) {
         return new CdamHelper(caseDocumentClientApi, s2sHelper, idamHelper);
     }
 

@@ -20,6 +20,8 @@ s2s:
     serviceName: 'em_gw'
     ccdGwSecret: 'AAAAAAAAAAAAAAAA'
     ccdGwServiceName: 'ccd_gw'
+    xuiWebappSecret: 'AAAAAAAAAAAAAAAA'
+    xuiWebappServiceName: 'xui_webapp'
 
 ccd-def:
   api:

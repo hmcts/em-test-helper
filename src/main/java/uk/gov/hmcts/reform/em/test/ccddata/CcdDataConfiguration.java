@@ -16,7 +16,7 @@ public class CcdDataConfiguration {
 
     @Bean
     CcdDataHelper ccdDataHelper(IdamHelper idamHelper,
-                                @Qualifier("ccdS2sHelper") S2sHelper ccdS2sHelper,
+                                @Qualifier("xuiS2sHelper") S2sHelper ccdS2sHelper,
                                 CoreCaseDataApi coreCaseDataApi) {
         return new CcdDataHelper(idamHelper, ccdS2sHelper, coreCaseDataApi);
     }

@@ -22,6 +22,9 @@ public class S2sScenario {
     @Autowired
     S2sHelper ccdS2sHelper;
 
+    @Autowired
+    S2sHelper xuiS2sHelper;
+
     @Test
     public void getS2sToken() {
         assertThat(s2sHelper.getS2sToken()).isNotEmpty();
@@ -32,4 +35,8 @@ public class S2sScenario {
         assertThat(ccdS2sHelper.getS2sToken()).isNotEmpty();
     }
 
+    @Test
+    public void getXuiS2sToken() {
+        assertThat(xuiS2sHelper.getS2sToken()).isNotEmpty();
+    }
 }

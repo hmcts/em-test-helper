@@ -181,10 +181,12 @@ test {
 }
 
 bootJar {
+    archiveClassifier = 'boot'
     enabled = false
 }
 
 jar {
+    archiveClassifier = ''
     enabled = true
 }
 

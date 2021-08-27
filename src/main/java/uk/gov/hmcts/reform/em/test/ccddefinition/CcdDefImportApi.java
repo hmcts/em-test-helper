@@ -33,7 +33,7 @@ public class CcdDefImportApi {
                                      @RequestHeader("ServiceAuthorization") String serviceAuth,
                                      @RequestPart MultipartFile file) {
 
-        MultiValueMap<String, Object> parameters = new LinkedMultiValueMap();
+        MultiValueMap<String, Object> parameters = new LinkedMultiValueMap<>();
         parameters.add("file", buildPartFromFile(file));
 
         HttpHeaders httpHeaders = setHttpHeaders(authorisation, serviceAuth);

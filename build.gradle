@@ -140,6 +140,7 @@ ext {
     feignVersion = '11.2'
     feignFormVersion = '3.8.0'
     wiremockVersion = '2.24.1'
+    junitJupiterVersion = '5.8.1
 }
 
 ext["spring-cloud-openfeign.version"] = "3.0.3"
@@ -164,8 +165,8 @@ dependencies {
     compile group: 'org.projectlombok', name: 'lombok', version: lombokVersion
     annotationProcessor group: 'org.projectlombok', name: 'lombok', version: lombokVersion
 
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.8.1'
-    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.8.1'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: junitJupiterVersion
+    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: junitJupiterVersion
 
     testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test'
 

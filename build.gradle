@@ -150,7 +150,7 @@ dependencies {
     compile "com.github.hmcts:idam-java-client:2.0.1"
     compile "com.github.hmcts:ccd-client:4.7.7"
     compile "com.github.hmcts:document-management-client:7.0.1"
-    compile 'com.github.hmcts:ccd-case-document-am-client:1.7.1'
+    compile 'com.github.hmcts:ccd-case-document-am-client:1.59'
     
     compile group: 'com.warrenstrange', name: 'googleauth', version: '1.5.0'
 

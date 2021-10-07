@@ -67,7 +67,6 @@ compileTestJava {
 repositories {
     mavenCentral()
     mavenLocal()
-    jcenter()
     maven { url 'https://jitpack.io' }
 }
 
@@ -147,9 +146,9 @@ ext["spring-cloud-openfeign.version"] = "3.0.3"
 
 dependencies {
     implementation("org.springframework.cloud:spring-cloud-starter-bootstrap:3.0.1")
-    compile "uk.gov.hmcts.reform:idam-client:2.0.0"
-    compile "uk.gov.hmcts.reform:core-case-data-store-client:4.7.6"
-    compile "uk.gov.hmcts.reform:document-management-client:7.0.0"
+    compile "com.github.hmcts:idam-java-client:2.0.1"
+    compile "com.github.hmcts:ccd-client:4.7.7"
+    compile "com.github.hmcts:document-management-client:7.0.1"
     compile 'com.github.hmcts:ccd-case-document-am-client:1.7.1'
     
     compile group: 'com.warrenstrange', name: 'googleauth', version: '1.5.0'

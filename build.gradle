@@ -153,18 +153,18 @@ dependencies {
     
     compile group: 'com.warrenstrange', name: 'googleauth', version: '1.5.0'
 
-    api group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '3.0.1'
+    api group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '3.0.4'
     api group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '2.4.5'
     compile "org.springframework.boot:spring-boot-starter-test"
     api group: 'io.github.openfeign', name: 'feign-jackson', version: feignVersion
     api group: 'io.github.openfeign', name: 'feign-httpclient', version: feignVersion
     api group: 'io.github.openfeign.form', name: 'feign-form', version: feignFormVersion
-    api group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jdk8', version: '2.12.3'
+    api group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jdk8', version: '2.13.0'
 
     compile group: 'org.projectlombok', name: 'lombok', version: lombokVersion
     annotationProcessor group: 'org.projectlombok', name: 'lombok', version: lombokVersion
 
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.6.3'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.8.1'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.6.3'
 
     testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test'
@@ -172,7 +172,7 @@ dependencies {
     testCompile group: 'com.github.tomakehurst', name:'wiremock-jre8', version: '2.28.1'
     testCompile group: 'org.mockito', name: 'mockito-core', version: '3.11.0'
 
-    testImplementation group: 'org.springframework.cloud', name: 'spring-cloud-contract-wiremock', version: '3.0.0'
+    testImplementation group: 'org.springframework.cloud', name: 'spring-cloud-contract-wiremock', version: '3.0.4'
     compile group: 'junit', name: 'junit', version: '4.13'
 }
 

@@ -31,8 +31,8 @@ dependencyUpdates.resolutionStrategy = {
 }
 
 configurations {
-    aatCompile.extendsFrom(testCompile)
-    aatRuntime.extendsFrom(testRuntime)
+    aatImplementation.extendsFrom(testImplementation)
+    aatRuntimeOnly.extendsFrom(testRuntimeOnly)
 }
 
 sourceSets {

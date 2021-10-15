@@ -1,5 +1,6 @@
 package uk.gov.hmcts.reform.em.test.cdam;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
@@ -14,7 +15,8 @@ public class CdamConfiguration {
 
     @Bean
     public CdamHelper cdamHelper(CaseDocumentClientApi caseDocumentClientApi,
-                                 @Qualifier("xuiS2sHelper") S2sHelper s2sHelper, IdamHelper idamHelper) {
+                                 @Qualifier("xuiS2sHelper") @Autowired(required = false) S2sHelper s2sHelper,
+                                 IdamHelper idamHelper) {
         return new CdamHelper(caseDocumentClientApi, s2sHelper, idamHelper);
     }
 

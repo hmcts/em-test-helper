@@ -1,5 +1,6 @@
 package uk.gov.hmcts.reform.em.test.ccddata;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.cloud.openfeign.EnableFeignClients;
@@ -16,8 +17,8 @@ public class CcdDataConfiguration {
 
     @Bean
     CcdDataHelper ccdDataHelper(IdamHelper idamHelper,
-                                @Qualifier("xuiS2sHelper") S2sHelper ccdS2sHelper,
+                                @Qualifier("xuiS2sHelper") @Autowired(required = false) S2sHelper xuiS2sHelper,
                                 CoreCaseDataApi coreCaseDataApi) {
-        return new CcdDataHelper(idamHelper, ccdS2sHelper, coreCaseDataApi);
+        return new CcdDataHelper(idamHelper, xuiS2sHelper, coreCaseDataApi);
     }
 }

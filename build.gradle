@@ -141,7 +141,7 @@ ext {
 ext["spring-cloud-openfeign.version"] = "3.0.3"
 
 dependencies {
-    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-bootstrap', version: '3.0.4'
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-bootstrap', version: '3.1.0'
     implementation "com.github.hmcts:idam-java-client:2.0.1"
     implementation "com.github.hmcts:ccd-client:4.8.3"
     implementation "com.github.hmcts:document-management-client:7.0.1"
@@ -165,7 +165,7 @@ dependencies {
 
     testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test'
 
-    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-bootstrap', version: '3.0.4'
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-bootstrap', version: '3.1.0'
 
     testImplementation group: 'com.github.tomakehurst', name:'wiremock-jre8', version: '2.31.0'
     testImplementation group: 'org.mockito', name: 'mockito-core', version: '4.2.0'

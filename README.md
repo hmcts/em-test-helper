@@ -6,6 +6,10 @@ This is a client library to facilitate common task during functional tests, like
 - CCD case creation
 - CCD definition import 
 
+It is published to jitpack repository via github actions - see .github/workflows/jitpack_build.yml
+Reference in your functional tests in gradle ala   functionalTestImplementation 'com.github.hmcts:em-test-helper:1.18.2'
+
+
 Usage:
 
 - Include EmTestConfig in your Spring Test

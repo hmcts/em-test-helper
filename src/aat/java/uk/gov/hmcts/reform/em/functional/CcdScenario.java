@@ -1,6 +1,7 @@
 package uk.gov.hmcts.reform.em.functional;
 
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -32,8 +33,8 @@ public class CcdScenario {
     public void testCaseCreationAndRetrieval() throws Exception {
         ccdDefinitionHelper.createCcdImportUser("bundle-tester@gmail.com","caseworker-publiclaw");
 
-        ccdDefinitionHelper.importDefinitionFile("bundle-tester@gmail.com","caseworker-publiclaw",
-                ClassLoader.getSystemClassLoader().getResourceAsStream("ccd_case_example.xlsx"));
+        String result = ccdDefinitionHelper.importDefinitionFile("bundle-tester@gmail.com", "caseworker-publiclaw",
+            ClassLoader.getSystemClassLoader().getResourceAsStream("ccd_case_example.xlsx"));
 
         CaseDetails caseDetails = ccdDataHelper.createCase("bundle-tester@gmail.com",
                 "PUBLICLAW",
@@ -50,6 +51,18 @@ public class CcdScenario {
 
         ccdDataHelper.triggerEvent("bundle-tester@gmail.com", caseDetails.getId().toString(), "editCaseDetails");
 
+    }
+
+    @Test(expected = org.springframework.web.client.HttpClientErrorException.class)
+    public void testFailedCaseCreationDueToCorruptFile() throws Exception {
+        ccdDefinitionHelper.createCcdImportUser("bundle-tester@gmail.com","caseworker-publiclaw");
+
+        String result = ccdDefinitionHelper.importDefinitionFile("bundle-tester@gmail.com", "caseworker-publiclaw",
+            ClassLoader.getSystemClassLoader().getResourceAsStream("corrupt_ccd_definition.xlsx"));
+
+        //will never reach this:
+        String successMessage="Case Definition data successfully imported";
+        System.out.println("Result is "+result);
     }
 
 }

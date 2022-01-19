@@ -29,9 +29,9 @@ public class CcdDefImportApi {
         this.restTemplate = restTemplate;
     }
 
-    public void importCaseDefinition(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorisation,
-                                     @RequestHeader("ServiceAuthorization") String serviceAuth,
-                                     @RequestPart MultipartFile file) {
+    public String importCaseDefinition(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorisation,
+                                       @RequestHeader("ServiceAuthorization") String serviceAuth,
+                                       @RequestPart MultipartFile file) {
 
         MultiValueMap<String, Object> parameters = new LinkedMultiValueMap();
         parameters.add("file", buildPartFromFile(file));
@@ -42,7 +42,9 @@ public class CcdDefImportApi {
                 parameters, httpHeaders
         );
 
-        restTemplate.postForObject(url + "/import", httpEntity, String.class);
+        String result = restTemplate.postForObject(url + "/import", httpEntity, String.class);
+        return result;
+
     }
 
     private HttpHeaders setHttpHeaders(String authorizationToken, String serviceAuth) {

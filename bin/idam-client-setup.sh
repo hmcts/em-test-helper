@@ -19,5 +19,6 @@ curl -XPOST \
   ${IDAM_URI}/${task} \
  -H "Authorization: AdminApiAuthToken ${token}" \
  -H "Content-Type: application/json" \
+ -H "accept: */*" \
  -d "${request_body}"
 

@@ -29,7 +29,7 @@ public class CcdDefinitionHelper {
         this.idamHelper.createUser(username, Stream.of(userRole, "ccd-import").collect(Collectors.toList()));
     }
 
-    public void importDefinitionFile(String username, String userRole, InputStream caseDefFile) throws IOException {
+    public String importDefinitionFile(String username, String userRole, InputStream caseDefFile) throws IOException {
 
         ccdDefUserRoleApi.createUserRole(new CcdDefUserRoleApi.CreateUserRoleBody(userRole, "PUBLIC"),
                 idamHelper.authenticateUser(username), s2sHelper.getS2sToken());
@@ -40,9 +40,10 @@ public class CcdDefinitionHelper {
                 "application/octet-stream",
                 caseDefFile);
 
-        ccdDefImportApi.importCaseDefinition(idamHelper.authenticateUser(username),
-                s2sHelper.getS2sToken(), multipartFile);
+        String result = ccdDefImportApi.importCaseDefinition(idamHelper.authenticateUser(username),
+            s2sHelper.getS2sToken(), multipartFile);
 
+        return result;
     }
 
 

@@ -29,6 +29,8 @@ docker-compose ${COMPOSE_FILE} up -d idam-api \
                                      idam-web-public \
                                      idam-web-admin
 
+echo "***************************"
+echo "***************************"
 echo "Testing IDAM Authentication..."
 token=$(./bin/idam-authenticate.sh ${IDAM_URI} ${IDAM_USERNAME} ${IDAM_PASSWORD})
 while [ "_${token}" = "_" ]; do
@@ -39,11 +41,19 @@ done
 
 # Set up IDAM client with services and roles
 echo "Setting up IDAM client..."
-(./bin/idam-client-setup.sh ${IDAM_URI} services ${token} '{"description": "em", "label": "em", "oauth2ClientId": "webshow", "oauth2ClientSecret": "AAAAAAAAAAAAAAAA", "oauth2RedirectUris": ["http://localhost:8080/oauth2redirect"], "selfRegistrationAllowed": true}')
-(./bin/idam-client-setup.sh ${IDAM_URI} services ${token} '{"description": "ccd gateway", "label": "ccd gateway", "oauth2ClientId": "ccd_gateway", "oauth2ClientSecret": "AAAAAAAAAAAAAAAA", "oauth2RedirectUris": ["http://localhost:3451/oauth2redirect"], "selfRegistrationAllowed": true}')
-(./bin/idam-client-setup-roles.sh ${IDAM_URI} ${token} caseworker)
-(./bin/idam-client-setup-roles.sh ${IDAM_URI} ${token} caseworker-publiclaw)
-(./bin/idam-client-setup-roles.sh ${IDAM_URI} ${token} ccd-import)
+echo "Setting up em client..."
+./bin/idam-client-setup.sh ${IDAM_URI} services ${token} '{"description": "em", "label": "em", "oauth2ClientId": "webshow", "oauth2ClientSecret": "AAAAAAAAAAAAAAAA", "oauth2RedirectUris": ["http://localhost:8080/oauth2redirect"], "selfRegistrationAllowed": true}'
+echo "Setting up ccd client..."
+./bin/idam-client-setup.sh ${IDAM_URI} services ${token} '{"description": "ccd gateway", "label": "ccd gateway", "oauth2ClientId": "ccd_gateway", "oauth2ClientSecret": "AAAAAAAAAAAAAAAA", "oauth2RedirectUris": ["http://localhost:3451/oauth2redirect"], "selfRegistrationAllowed": true}'
+
+echo "Setting up caseworker role..."
+./bin/idam-client-setup-roles.sh ${IDAM_URI} ${token} caseworker
+
+echo "Setting up caseworker-publiclaw role..."
+./bin/idam-client-setup-roles.sh ${IDAM_URI} ${token} caseworker-publiclaw
+
+echo "Setting up ccd-import role..."
+./bin/idam-client-setup-roles.sh ${IDAM_URI} ${token} ccd-import
 
 # Start all other images
 echo "Starting dependencies..."
@@ -55,6 +65,7 @@ docker-compose ${COMPOSE_FILE} up -d shared-database\
                                      dm-store \
                                      ccd-user-profile-api \
                                      ccd-definition-store-api \
+                                     am-role-assignment-service \
                                      ccd-data-store-api \
                                      ccd-api-gateway \
                                      ccd-case-management-web \
@@ -62,5 +73,14 @@ docker-compose ${COMPOSE_FILE} up -d shared-database\
                                      smtp-server
 
 
-echo "LOCAL ENVIRONMENT SUCCESSFULLY STARTED"
+echo "LOCAL ENVIRONMENT START UP SCRIPT COMPLETED"
+
+#read -p "Press the ENTER key to continue the other services"
+#
+#
+#docker-compose ${COMPOSE_FILE} up -d
+
+read -p "Press the ENTER key to view the logs (dont worry about LDAP connection exceptions from fr-idm)"
+
+docker-compose ${COMPOSE_FILE} logs -f
 

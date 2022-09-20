@@ -5,7 +5,6 @@ plugins {
     id 'com.github.ben-manes.versions' version '0.42.0'
     id 'java-library'
     id 'maven-publish'
-    id 'io.franzbecker.gradle-lombok' version '5.0.0'
 }
 
 apply plugin: 'idea'
@@ -14,8 +13,13 @@ def buildNumber = System.getenv("RELEASE_VERSION")?.replace("refs/tags/", "") ?:
 
 group 'uk.gov.hmcts.reform'
 version buildNumber
-sourceCompatibility = 11
-targetCompatibility = 11
+
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
 
 dependencyUpdates.resolutionStrategy = {
     componentSelection { rules ->
@@ -187,6 +191,11 @@ dependencyManagement {
 
 wrapper {
     distributionType = Wrapper.DistributionType.ALL
+}
+
+// https://github.com/gradle/gradle/issues/16791
+tasks.withType(JavaExec).configureEach {
+    javaLauncher.set(javaToolchains.launcherFor(java.toolchain))
 }
 
 test {

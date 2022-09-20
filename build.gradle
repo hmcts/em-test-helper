@@ -5,7 +5,6 @@ plugins {
     id 'com.github.ben-manes.versions' version '0.42.0'
     id 'java-library'
     id 'maven-publish'
-    id 'io.franzbecker.gradle-lombok' version '5.0.0'
 }
 
 apply plugin: 'idea'
@@ -136,7 +135,7 @@ publishing {
 }
 
 ext {
-    lombokVersion = '1.18.22'
+    lombokVersion = '1.18.24'
     feignVersion = '11.9.1'
     feignFormVersion = '3.8.0'
     wiremockVersion = '2.24.1'

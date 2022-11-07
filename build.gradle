@@ -140,7 +140,7 @@ ext {
     feignFormVersion = '3.8.0'
     wiremockVersion = '2.24.1'
     junitJupiterVersion = '5.9.1'
-    springCloud = '3.1.4'
+    springCloud = '3.1.5'
 }
 
 ext["spring-cloud-openfeign.version"] = "3.0.3"

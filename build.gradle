@@ -160,7 +160,7 @@ dependencies {
     implementation group: 'io.github.openfeign', name: 'feign-jackson', version: feignVersion
     implementation group: 'io.github.openfeign', name: 'feign-httpclient', version: feignVersion
     implementation group: 'io.github.openfeign.form', name: 'feign-form', version: feignFormVersion
-    implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jdk8', version: '2.14.0'
+    implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jdk8', version: '2.14.1'
 
     implementation group: 'org.projectlombok', name: 'lombok', version: lombokVersion
     annotationProcessor group: 'org.projectlombok', name: 'lombok', version: lombokVersion

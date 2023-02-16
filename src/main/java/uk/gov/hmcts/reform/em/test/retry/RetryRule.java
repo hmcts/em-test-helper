@@ -1,6 +1,7 @@
 package uk.gov.hmcts.reform.em.test.retry;
 
 import lombok.extern.slf4j.Slf4j;
+import org.junit.AssumptionViolatedException;
 import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
@@ -44,7 +45,11 @@ public final class RetryRule implements TestRule {
                 try {
                     base.evaluate();
                     return;
-                } catch (Throwable throwable) {
+                }
+                catch (AssumptionViolatedException e) {
+                    caughtThrowable = e;
+                }
+                catch (Throwable throwable) {
                     caughtThrowable = throwable;
                     failCount++;
                     log.error("- Retry #{} failed - {}", (i + 1), stackTraceAsString(throwable));

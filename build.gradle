@@ -1,8 +1,8 @@
 plugins {
     id 'checkstyle'
     id 'io.spring.dependency-management' version '1.1.0'
-    id 'org.springframework.boot' version '2.7.6'
-    id 'com.github.ben-manes.versions' version '0.45.0'
+    id 'org.springframework.boot' version '2.7.10'
+    id 'com.github.ben-manes.versions' version '0.46.0'
     id 'java-library'
     id 'maven-publish'
 }
@@ -181,7 +181,7 @@ dependencies {
 
 dependencyManagement {
     dependencies {
-        dependencySet(group: 'org.apache.logging.log4j', version: '2.19.0') {
+        dependencySet(group: 'org.apache.logging.log4j', version: '2.20.0') {
             entry 'log4j-api'
             entry 'log4j-to-slf4j'
         }

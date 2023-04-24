@@ -173,7 +173,7 @@ dependencies {
     implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-bootstrap', version: springCloud
 
     testImplementation group: 'com.github.tomakehurst', name:'wiremock-jre8', version: '2.35.0'
-    testImplementation group: 'org.mockito', name: 'mockito-core', version: '5.3.0'
+    testImplementation group: 'org.mockito', name: 'mockito-core', version: '5.3.1'
 
     testImplementation group: 'org.springframework.cloud', name: 'spring-cloud-contract-wiremock', version: springCloud
     implementation group: 'junit', name: 'junit', version: '4.13.2'

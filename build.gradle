@@ -1,7 +1,7 @@
 plugins {
     id 'checkstyle'
     id 'io.spring.dependency-management' version '1.1.0'
-    id 'org.springframework.boot' version '2.7.11'
+    id 'org.springframework.boot' version '3.0.6'
     id 'com.github.ben-manes.versions' version '0.46.0'
     id 'java-library'
     id 'maven-publish'
@@ -99,12 +99,12 @@ def pomConfig = {
 
 
 task sourcesJar(type: Jar, dependsOn: classes) {
-    classifier = 'sources'
+    archiveClassifier = 'sources'
     from sourceSets.main.allSource
 }
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
+    archiveClassifier = 'javadoc'
     from javadoc.destinationDir
 }
 
@@ -140,7 +140,7 @@ ext {
     feignFormVersion = '3.8.0'
     wiremockVersion = '2.24.1'
     junitJupiterVersion = '5.9.3'
-    springCloud = '4.0.1'
+    springCloud = '4.0.2'
 }
 
 ext["spring-cloud-openfeign.version"] = "3.0.3"

@@ -1,9 +1,12 @@
 package uk.gov.hmcts.reform.em.test.s2s;
 
+import feign.codec.Decoder;
+import feign.codec.StringDecoder;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -24,6 +27,13 @@ public interface S2sApi {
     class S2sPostBody {
         private String microservice;
         private String oneTimePassword;
+    }
+
+    class Config {
+        @Bean
+        Decoder stringDecoder() {
+            return new StringDecoder();
+        }
     }
 
 }

@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @FeignClient(
     name = "s2s-api",
-    url = "${s2s.api.url}"
+    url = "${s2s.api.url}",
+    configuration = S2sApi.Config.class
 )
 @ConditionalOnProperty("s2s.api.url")
 public interface S2sApi {

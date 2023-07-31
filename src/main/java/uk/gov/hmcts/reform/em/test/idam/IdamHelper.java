@@ -57,7 +57,7 @@ public class IdamHelper {
     }
 
     public String getUserId(String username) {
-        return idamClient.getUserDetails(authenticateUser(username)).getId();
+        return idamClient.getUserInfo(authenticateUser(username)).getUid();
     }
 
     public String authenticateUser(String username) {
@@ -71,10 +71,10 @@ public class IdamHelper {
     private String authenticateOpenIdUser(String username, String password) {
 
         OpenIdAuthUserRequest openIdAuthUserRequest = OpenIdAuthUserRequest.builder()
-                .client_id(openIdConfiguration.getClientId())
-                .client_secret(openIdConfiguration.getClient_secret())
-                .grant_type(openIdConfiguration.getGrantType())
-                .redirect_uri(openIdConfiguration.getRedirectUri())
+                .clientId(openIdConfiguration.getClientId())
+                .clientSecret(openIdConfiguration.getClient_secret())
+                .grantType(openIdConfiguration.getGrantType())
+                .redirectUri(openIdConfiguration.getRedirectUri())
                 .scope(openIdConfiguration.getScope())
                 .username(username)
                 .password(password)

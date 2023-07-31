@@ -7,20 +7,20 @@ import org.springframework.context.annotation.Configuration;
 public class OpenIdConfiguration {
 
     private String clientId;
-    private String client_secret;
+    private String clientSecret;
     private String redirectUri;
-    private String grant_type;
+    private String grantType;
     private String scope;
 
     public OpenIdConfiguration(@Value("${idam.client.id:}") String clientId,
-                               @Value("${idam.client.secret:}") String client_secret,
+                               @Value("${idam.client.secret:}") String clientSecret,
                                @Value("${idam.client.redirect_uri:}") String redirectUri,
                                @Value("${idam.client.scope:}") String scope,
-                               @Value("${idam.client.grant_type:}") String grant_type) {
+                               @Value("${idam.client.grantType:}") String grantType) {
         this.clientId = clientId;
-        this.client_secret = client_secret;
+        this.clientSecret = clientSecret;
         this.redirectUri = redirectUri;
-        this.grant_type = grant_type;
+        this.grantType = grantType;
         this.scope = scope;
     }
 
@@ -29,7 +29,7 @@ public class OpenIdConfiguration {
     }
 
     public String getClient_secret() {
-        return client_secret;
+        return clientSecret;
     }
 
     public String getRedirectUri() {
@@ -37,7 +37,7 @@ public class OpenIdConfiguration {
     }
 
     public String getGrantType() {
-        return grant_type;
+        return grantType;
     }
 
     public String getScope() {

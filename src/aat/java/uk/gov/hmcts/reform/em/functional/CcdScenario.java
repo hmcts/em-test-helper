@@ -1,7 +1,6 @@
 package uk.gov.hmcts.reform.em.functional;
 
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -61,8 +60,8 @@ public class CcdScenario {
             ClassLoader.getSystemClassLoader().getResourceAsStream("corrupt_ccd_definition.xlsx"));
 
         //will never reach this:
-        String successMessage="Case Definition data successfully imported";
-        System.out.println("Result is "+result);
+        String successMessage = "Case Definition data successfully imported";
+        System.out.println("Result is " + result);
     }
 
 }

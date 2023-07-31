@@ -45,16 +45,15 @@ public final class RetryRule implements TestRule {
                 try {
                     base.evaluate();
                     return;
-                }
-                catch (AssumptionViolatedException e) {
+                } catch (AssumptionViolatedException e) {
                     caughtThrowable = e;
-                }
-                catch (Throwable throwable) {
+                } catch (Throwable throwable) {
                     caughtThrowable = throwable;
                     failCount++;
                     log.error("- Retry #{} failed - {}", (i + 1), stackTraceAsString(throwable));
                     if (totalRetries >= MAX_RETRIES) {
-                        log.warn("Maximum retry limit across test suite exceeded (max. {}): not retrying failed test.", MAX_RETRIES);
+                        log.warn("Maximum retry limit across test suite exceeded (max. {}):"
+                                + " not retrying failed test.", MAX_RETRIES);
                         break;
                     } else {
                         totalRetries++;

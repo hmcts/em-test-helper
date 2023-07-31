@@ -23,8 +23,9 @@ public class CdamHelper {
 
     public UploadResponse uploadDocuments(String username,
                                           DocumentUploadRequest uploadRequest) {
-        return caseDocumentClientApi.uploadDocuments(idamHelper.authenticateUser(username), "Bearer " +s2sHelper.getS2sToken(),
-                                                    uploadRequest );
+        return caseDocumentClientApi.uploadDocuments(idamHelper.authenticateUser(username),
+                "Bearer " + s2sHelper.getS2sToken(),
+                            uploadRequest);
     }
 
     public Document getDocumentMetadata(String username, UUID documentId) {

@@ -52,8 +52,10 @@ sourceSets {
 }
 
 checkstyle {
-    //    ignoreFailures = true
-    sourceSets = []
+    maxWarnings = 0
+    toolVersion = '9.3'
+    // need to set configDir to rootDir otherwise submodule will use submodule/config/checkstyle
+    getConfigDirectory().set(new File(rootDir, 'config/checkstyle'))
 }
 compileJava {
     options.compilerArgs << '-parameters' << '-Xlint:deprecation'

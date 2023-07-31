@@ -3,11 +3,12 @@ package uk.gov.hmcts.reform.em.test.idam.client.models;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 
+@SuppressWarnings({"ParameterName","MemberName"})
 @EqualsAndHashCode
 @Builder
 public class OpenIdAuthUserRequest {
 
-    private String grantType;
+    private String grant_type;
 
     private String clientId;
 
@@ -18,10 +19,10 @@ public class OpenIdAuthUserRequest {
     private String username;
     private String password;
 
-    public OpenIdAuthUserRequest(String grantType, String clientId, String clientSecret,
+    public OpenIdAuthUserRequest(String grant_type, String clientId, String clientSecret,
                                  String redirectUri, String scope,
                                     String username, String password) {
-        this.grantType = grantType;
+        this.grant_type = grant_type;
         this.clientId = clientId;
         this.clientSecret = clientSecret;
         this.redirectUri = redirectUri;
@@ -30,8 +31,8 @@ public class OpenIdAuthUserRequest {
         this.password = password;
     }
 
-    public String getGrantType() {
-        return grantType;
+    public String getgrant_type() {
+        return grant_type;
     }
 
     public String getClientId() {

@@ -73,7 +73,7 @@ public class IdamHelper {
         OpenIdAuthUserRequest openIdAuthUserRequest = OpenIdAuthUserRequest.builder()
                 .clientId(openIdConfiguration.getClientId())
                 .clientSecret(openIdConfiguration.getClient_secret())
-                .grantType(openIdConfiguration.getGrantType())
+                .grant_type(openIdConfiguration.getGrantType())
                 .redirectUri(openIdConfiguration.getRedirectUri())
                 .scope(openIdConfiguration.getScope())
                 .username(username)

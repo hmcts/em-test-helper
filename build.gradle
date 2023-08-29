@@ -1,7 +1,7 @@
 plugins {
     id 'checkstyle'
     id 'io.spring.dependency-management' version '1.1.3'
-    id 'org.springframework.boot' version '3.1.2'
+    id 'org.springframework.boot' version '3.1.3'
     id 'com.github.ben-manes.versions' version '0.47.0'
     id 'java-library'
     id 'maven-publish'
@@ -53,7 +53,7 @@ sourceSets {
 
 checkstyle {
     maxWarnings = 0
-    toolVersion = '10.12.2'
+    toolVersion = '10.12.3'
     // need to set configDir to rootDir otherwise submodule will use submodule/config/checkstyle
     getConfigDirectory().set(new File(rootDir, 'config/checkstyle'))
 }

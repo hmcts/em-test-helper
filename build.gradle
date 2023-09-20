@@ -137,7 +137,7 @@ publishing {
 }
 
 ext {
-    lombokVersion = '1.18.28'
+    lombokVersion = '1.18.30'
     feignVersion = '12.5'
     feignFormVersion = '3.8.0'
     wiremockVersion = '2.24.1'

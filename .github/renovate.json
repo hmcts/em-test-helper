@@ -1,4 +1,16 @@
 {
+  "packageRules": [
+    {
+      "matchPackageNames": [
+        "org.springframework.boot",
+        "com.fasterxml.jackson.datatype:jackson-datatype-jdk8",
+        "org.springframework.cloud:spring-cloud-dependencies",
+        "org.springframework.cloud:spring-cloud-contract-wiremock",
+        "uk.gov.hmcts.reform:idam-client"
+      ],
+      "enabled": false
+    }
+  ],
   "extends": [
     "config:base"
   ],

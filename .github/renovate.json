@@ -1,6 +1,18 @@
 {
-  "extends": [
-    "config:base"
+  "packageRules": [
+    {
+      "matchPackageNames": [
+        "org.springframework.boot",
+        "com.fasterxml.jackson.datatype:jackson-datatype-jdk8",
+        "org.springframework.cloud:spring-cloud-dependencies",
+        "org.springframework.cloud:spring-cloud-contract-wiremock",
+        "uk.gov.hmcts.reform:idam-client"
+      ],
+      "enabled": false
+    }
   ],
-  "enabledManagers": ["gradle-wrapper"]
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "local>hmcts/.github:renovate-config"
+  ]
 }

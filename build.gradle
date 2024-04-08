@@ -142,13 +142,12 @@ ext {
     feignFormVersion = '3.8.0'
     wiremockVersion = '2.24.1'
     junitJupiterVersion = '5.9.3'
-    springCloud = '4.1.0'
 }
 
 ext["spring-cloud-openfeign.version"] = "3.0.3"
 
 dependencies {
-    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-bootstrap', version: springCloud
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-bootstrap', version: '4.1.2'
     api "com.github.hmcts:idam-java-client:3.0.3"
     api "com.github.hmcts:ccd-client:4.9.2"
     api "com.github.hmcts:document-management-client:7.0.1"
@@ -156,7 +155,7 @@ dependencies {
 
     implementation group: 'com.warrenstrange', name: 'googleauth', version: '1.5.0'
 
-    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: springCloud
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '4.1.1'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-test'
     implementation group: 'io.github.openfeign', name: 'feign-jackson', version: feignVersion
@@ -172,12 +171,12 @@ dependencies {
 
     testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test'
 
-    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-bootstrap', version: springCloud
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-bootstrap', version: '4.1.2'
 
     testImplementation group: 'com.github.tomakehurst', name:'wiremock-jre8', version: '3.0.1'
     testImplementation group: 'org.mockito', name: 'mockito-core', version: '5.11.0'
 
-    testImplementation group: 'org.springframework.cloud', name: 'spring-cloud-contract-wiremock', version: springCloud
+    testImplementation group: 'org.springframework.cloud', name: 'spring-cloud-contract-wiremock', version: '4.1.0'
     implementation group: 'junit', name: 'junit', version: '4.13.2'
 }
 

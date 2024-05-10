@@ -1,3 +1,3 @@
-FROM postgres:16.2
+FROM postgres:16.3
 COPY create-multiple-postgresql-databases.sh /docker-entrypoint-initdb.d/
 EXPOSE 5432

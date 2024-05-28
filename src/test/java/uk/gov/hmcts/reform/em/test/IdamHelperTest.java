@@ -88,5 +88,14 @@ public class IdamHelperTest {
         verify(openIdUserApi, times(1)).authenticateUser(any());
     }
 
+    @Test
+    public void testAuthenticateUserWithPassword() {
+        when(openIdAuthUserResponse.getAccessToken()).thenReturn("b");
+        when(openIdUserApi.authenticateUser(any())).thenReturn(openIdAuthUserResponse);
+        assertThat(idamHelper.authenticateUser("x", "password")).isEqualTo("Bearer b");
+        assertThat(idamHelper.authenticateUser("x", "password")).isEqualTo("Bearer b");
+        assertThat(idamHelper.authenticateUser("x")).isEqualTo("Bearer b");
+        verify(openIdUserApi, times(1)).authenticateUser(any());
+    }
 
 }

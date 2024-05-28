@@ -62,12 +62,20 @@ public class IdamHelper {
 
     public String authenticateUser(String username) {
         if (!idamTokens.containsKey(username)) {
-            String code = authenticateOpenIdUser(username, password);
+            String code = authenticateOpenIdUser(username, this.password);
             idamTokens.put(username, code);
         }
         return idamTokens.get(username);
     }
 
+    public String authenticateUser(String username, String password) {
+        if (!idamTokens.containsKey(username)) {
+            String code = authenticateOpenIdUser(username, password);
+            idamTokens.put(username, code);
+        }
+        return idamTokens.get(username);
+    }
+    
     private String authenticateOpenIdUser(String username, String password) {
 
         OpenIdAuthUserRequest openIdAuthUserRequest = OpenIdAuthUserRequest.builder()

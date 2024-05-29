@@ -79,10 +79,10 @@ public class IdamHelper {
     private String authenticateOpenIdUser(String username, String password) {
 
         OpenIdAuthUserRequest openIdAuthUserRequest = OpenIdAuthUserRequest.builder()
-                .clientId(openIdConfiguration.getClientId())
-                .clientSecret(openIdConfiguration.getClient_secret())
+                .client_id(openIdConfiguration.getClientId())
+                .client_secret(openIdConfiguration.getClient_secret())
                 .grant_type(openIdConfiguration.getGrantType())
-                .redirectUri(openIdConfiguration.getRedirectUri())
+                .redirect_uri(openIdConfiguration.getRedirectUri())
                 .scope(openIdConfiguration.getScope())
                 .username(username)
                 .password(password)

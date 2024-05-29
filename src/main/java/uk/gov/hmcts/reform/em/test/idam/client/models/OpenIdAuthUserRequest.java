@@ -9,38 +9,41 @@ import lombok.EqualsAndHashCode;
 public class OpenIdAuthUserRequest {
 
     private String grant_type;
-
-    private String clientId;
-
-    private String clientSecret;
-
-    private String redirectUri;
+    private String client_id;
+    private String client_secret;
+    private String redirect_uri;
     private String scope;
     private String username;
     private String password;
 
-    public OpenIdAuthUserRequest(String grant_type, String clientId, String clientSecret,
-                                 String redirectUri, String scope,
-                                    String username, String password) {
-        this.grant_type = grant_type;
-        this.clientId = clientId;
-        this.clientSecret = clientSecret;
-        this.redirectUri = redirectUri;
+    public OpenIdAuthUserRequest(
+            String grantType,
+            String clientId,
+            String clientSecret,
+            String redirectUri,
+            String scope,
+            String username,
+            String password
+    ) {
+        this.grant_type = grantType;
+        this.client_id = clientId;
+        this.client_secret = clientSecret;
+        this.redirect_uri = redirectUri;
         this.scope = scope;
         this.username = username;
         this.password = password;
     }
 
-    public String getgrant_type() {
+    public String getGrantType() {
         return grant_type;
     }
 
     public String getClientId() {
-        return clientId;
+        return client_id;
     }
 
     public String getRedirectUri() {
-        return redirectUri;
+        return redirect_uri;
     }
 
     public String getScope() {
@@ -48,7 +51,7 @@ public class OpenIdAuthUserRequest {
     }
 
     public String getClient_secret() {
-        return clientSecret;
+        return client_secret;
     }
 
     public String getUsername() {

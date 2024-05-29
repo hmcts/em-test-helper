@@ -56,12 +56,10 @@ public class CcdScenario {
     public void testFailedCaseCreationDueToCorruptFile() throws Exception {
         ccdDefinitionHelper.createCcdImportUser("bundle-tester@gmail.com","caseworker-publiclaw");
 
-        String result = ccdDefinitionHelper.importDefinitionFile("bundle-tester@gmail.com", "caseworker-publiclaw",
+        ccdDefinitionHelper.importDefinitionFile("bundle-tester@gmail.com", "caseworker-publiclaw",
             ClassLoader.getSystemClassLoader().getResourceAsStream("corrupt_ccd_definition.xlsx"));
 
-        //will never reach this:
-        String successMessage = "Case Definition data successfully imported";
-        System.out.println("Result is " + result);
+        assertThat("not-reach-here").isNull();
     }
 
 }

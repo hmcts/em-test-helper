@@ -61,6 +61,14 @@ public class IdamHelper {
     }
 
     public String authenticateUser(String username) {
+        return authenticateOrGetFromCache(username, this.password);
+    }
+
+    public String authenticateUser(String username, String password) {
+        return authenticateOrGetFromCache(username, password);
+    }
+
+    private String authenticateOrGetFromCache(String username, String password) {
         if (!idamTokens.containsKey(username)) {
             String code = authenticateOpenIdUser(username, password);
             idamTokens.put(username, code);

@@ -57,10 +57,18 @@ public class IdamHelper {
     }
 
     public String getUserId(String username) {
-        return idamClient.getUserDetails(authenticateUser(username)).getId();
+        return idamClient.getUserInfo(authenticateUser(username)).getUid();
     }
 
     public String authenticateUser(String username) {
+        return authenticateOrGetFromCache(username, this.password);
+    }
+
+    public String authenticateUser(String username, String password) {
+        return authenticateOrGetFromCache(username, password);
+    }
+
+    private String authenticateOrGetFromCache(String username, String password) {
         if (!idamTokens.containsKey(username)) {
             String code = authenticateOpenIdUser(username, password);
             idamTokens.put(username, code);
@@ -71,11 +79,11 @@ public class IdamHelper {
     private String authenticateOpenIdUser(String username, String password) {
 
         OpenIdAuthUserRequest openIdAuthUserRequest = OpenIdAuthUserRequest.builder()
-                .client_id(openIdConfiguration.getClientId())
-                .client_secret(openIdConfiguration.getClient_secret())
-                .grant_type(openIdConfiguration.getGrantType())
-                .redirect_uri(openIdConfiguration.getRedirectUri())
-                .scope(openIdConfiguration.getScope())
+                .client_id(openIdConfiguration.clientId)
+                .client_secret(openIdConfiguration.clientSecret)
+                .grant_type(openIdConfiguration.grantType)
+                .redirect_uri(openIdConfiguration.redirectUri)
+                .scope(openIdConfiguration.scope)
                 .username(username)
                 .password(password)
                 .build();

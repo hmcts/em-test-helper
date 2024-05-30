@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode
 @Builder
+@SuppressWarnings({"ParameterName","MemberName"})
 public class OpenIdAuthUserRequest {
 
     private String grant_type;
@@ -15,13 +16,19 @@ public class OpenIdAuthUserRequest {
     private String username;
     private String password;
 
-    public OpenIdAuthUserRequest(String grant_type, String client_id, String client_secret,
-                                 String redirect_uri, String scope,
-                                 String username, String password) {
-        this.grant_type = grant_type;
-        this.client_id = client_id;
-        this.client_secret = client_secret;
-        this.redirect_uri = redirect_uri;
+    public OpenIdAuthUserRequest(
+            String grantType,
+            String clientId,
+            String clientSecret,
+            String redirectUri,
+            String scope,
+            String username,
+            String password
+    ) {
+        this.grant_type = grantType;
+        this.client_id = clientId;
+        this.client_secret = clientSecret;
+        this.redirect_uri = redirectUri;
         this.scope = scope;
         this.username = username;
         this.password = password;

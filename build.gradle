@@ -140,7 +140,7 @@ ext {
 ext["spring-cloud-openfeign.version"] = "3.0.3"
 
 dependencies {
-    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-bootstrap', version: '4.1.5'
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-bootstrap', version: '4.2.0'
     api "com.github.hmcts:idam-java-client:3.0.3"
     api "com.github.hmcts:ccd-client:5.0.3"
     api "com.github.hmcts:document-management-client:7.0.1"
@@ -148,7 +148,7 @@ dependencies {
 
     implementation group: 'com.warrenstrange', name: 'googleauth', version: '1.5.0'
 
-    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '4.1.4'
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '4.2.0'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-test'
     implementation group: 'io.github.openfeign', name: 'feign-jackson', version: feignVersion
@@ -164,7 +164,7 @@ dependencies {
 
     testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test'
 
-    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-bootstrap', version: '4.1.5'
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-bootstrap', version: '4.2.0'
 
     testImplementation group: 'com.github.tomakehurst', name:'wiremock-jre8', version: '3.0.1'
     testImplementation group: 'org.mockito', name: 'mockito-core', version: '5.14.2'

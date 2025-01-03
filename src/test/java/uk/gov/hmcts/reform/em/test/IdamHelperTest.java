@@ -1,10 +1,10 @@
 package uk.gov.hmcts.reform.em.test;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import uk.gov.hmcts.reform.em.test.idam.DeleteUserApi;
 import uk.gov.hmcts.reform.em.test.idam.IdamHelper;
 import uk.gov.hmcts.reform.em.test.idam.OpenIdConfiguration;
@@ -15,7 +15,6 @@ import uk.gov.hmcts.reform.idam.client.IdamClient;
 import uk.gov.hmcts.reform.idam.client.IdamTestApi;
 import uk.gov.hmcts.reform.idam.client.models.UserInfo;
 
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -25,8 +24,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
-public class IdamHelperTest {
+@ExtendWith(MockitoExtension.class)
+class IdamHelperTest {
 
     @Mock
     IdamClient idamClient;
@@ -53,14 +52,14 @@ public class IdamHelperTest {
     private IdamHelper idamHelper;
 
     @Test
-    public void testCreateUser() {
-        idamHelper.createUser("x", Stream.of("x").collect(Collectors.toList()));
+    void testCreateUser() {
+        idamHelper.createUser("x", Stream.of("x").toList());
         verify(deleteUserApi, times(1)).deleteUser("x");
         verify(idamTestApi, times(1)).createUser(any());
     }
 
     @Test
-    public void testGetUserId() {
+    void testGetUserId() {
         UserInfo userDetailsMock = mock(UserInfo.class);
         when(userDetailsMock.getUid()).thenReturn("id");
         when(openIdAuthUserResponse.getAccessToken()).thenReturn("b");
@@ -70,13 +69,13 @@ public class IdamHelperTest {
     }
 
     @Test
-    public void testDeleteUser() {
+    void testDeleteUser() {
         idamHelper.deleteUser("x");
         verify(deleteUserApi, times(1)).deleteUser("x");
     }
 
     @Test
-    public void testAuthenticateUser() {
+    void testAuthenticateUser() {
         when(openIdAuthUserResponse.getAccessToken()).thenReturn("b");
         when(openIdUserApi.authenticateUser(any())).thenReturn(openIdAuthUserResponse);
         assertThat(idamHelper.authenticateUser("x")).isEqualTo("Bearer b");
@@ -86,7 +85,7 @@ public class IdamHelperTest {
     }
 
     @Test
-    public void testAuthenticateUserWithPassword() {
+    void testAuthenticateUserWithPassword() {
         when(openIdAuthUserResponse.getAccessToken()).thenReturn("b");
         when(openIdUserApi.authenticateUser(any())).thenReturn(openIdAuthUserResponse);
         assertThat(idamHelper.authenticateUser("x", "pass")).isEqualTo("Bearer b");

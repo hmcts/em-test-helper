@@ -1,12 +1,12 @@
 package uk.gov.hmcts.reform.em.functional;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.web.multipart.MultipartFile;
 import uk.gov.hmcts.reform.ccd.document.am.model.Document;
 import uk.gov.hmcts.reform.ccd.document.am.model.DocumentUploadRequest;
@@ -18,15 +18,14 @@ import uk.gov.hmcts.reform.em.test.idam.IdamHelper;
 
 import java.io.IOException;
 import java.util.UUID;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(classes = {EmTestConfig.class})
 @PropertySource(value = "classpath:application.yml")
-@RunWith(SpringRunner.class)
-public class CdamScenario {
+@ExtendWith(SpringExtension.class)
+class CdamScenarioTest {
 
     @Autowired
     IdamHelper idamHelper;
@@ -39,7 +38,7 @@ public class CdamScenario {
     private static final String USERNAME = "ab@mail.com";
 
     @Test
-    public void testUploadDocuments() throws IOException {
+    void testUploadDocuments() throws IOException {
 
         UploadResponse uploadResponse = getUploadDocumentResponse();
 
@@ -47,11 +46,10 @@ public class CdamScenario {
         assertThat(uploadResponse.getDocuments().get(0).hashToken).isNotBlank();
         assertThat(uploadResponse.getDocuments().get(0).links).isNotNull();
         assertThat(uploadResponse.getDocuments().get(0).originalDocumentName).isNotBlank();
-        String href = uploadResponse.getDocuments().get(0).links.self.href;
     }
 
     @Test
-    public void testGetDocumentMetadata() throws IOException {
+    void testGetDocumentMetadata() throws IOException {
         UploadResponse uploadResponse = getUploadDocumentResponse();
         UUID uuid = extractDocumentId(uploadResponse.getDocuments().get(0).links.self.href);
         Document document = cdamHelper.getDocumentMetadata(USERNAME, uuid);
@@ -63,7 +61,7 @@ public class CdamScenario {
     }
 
     private UploadResponse getUploadDocumentResponse() throws IOException {
-        idamHelper.createUser(USERNAME, Stream.of("caseworker").collect(Collectors.toList()));
+        idamHelper.createUser(USERNAME, Stream.of("caseworker").toList());
         final MultipartFile multipartFile = new MockMultipartFile(
             "ccd_case_example.xlsx",
             "ccd_case_example.xlsx",
@@ -71,7 +69,7 @@ public class CdamScenario {
             ClassLoader.getSystemClassLoader().getResourceAsStream("ccd_case_example.xlsx"));
 
         DocumentUploadRequest documentUploadRequest = new DocumentUploadRequest(Classification.PUBLIC.toString(),
-            CASE_TYPE_ID, JURISDICTION_ID, Stream.of(multipartFile).collect(Collectors.toList()));
+            CASE_TYPE_ID, JURISDICTION_ID, Stream.of(multipartFile).toList());
 
         return cdamHelper.uploadDocuments(USERNAME, documentUploadRequest);
     }

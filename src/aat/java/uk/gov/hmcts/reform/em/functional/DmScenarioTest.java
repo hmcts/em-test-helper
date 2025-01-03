@@ -1,12 +1,12 @@
 package uk.gov.hmcts.reform.em.functional;
 
 import org.apache.commons.io.IOUtils;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import uk.gov.hmcts.reform.document.domain.Document;
 import uk.gov.hmcts.reform.em.EmTestConfig;
 import uk.gov.hmcts.reform.em.test.dm.DmHelper;
@@ -18,14 +18,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(classes = {EmTestConfig.class})
 @PropertySource(value = "classpath:application.yml")
-@RunWith(SpringRunner.class)
-public class DmScenario {
+@ExtendWith(SpringExtension.class)
+class DmScenarioTest {
 
     @Autowired
     DmHelper dmHelper;
 
     @Test
-    public void uploadAndGetId() throws Exception {
+    void uploadAndGetId() throws Exception {
         String id =
                 dmHelper.uploadAndGetId(
                         ClassLoader.getSystemClassLoader().getResourceAsStream("ccd_case_example.xlsx"),

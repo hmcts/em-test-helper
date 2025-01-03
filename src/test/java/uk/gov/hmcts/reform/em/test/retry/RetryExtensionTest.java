@@ -14,9 +14,12 @@ class RetryExtensionTest {
 
     private int numberOfRetries = 0;
 
+    private int totalRetries = 0;
+
     @BeforeEach
-    void resetRetries() {
+    void setUp() {
         numberOfRetries = 0;
+        totalRetries = retryExtension.getTotalRetries();
     }
 
     @Test
@@ -34,7 +37,7 @@ class RetryExtensionTest {
         assertEquals(3, numberOfRetries);
 
         // Verify total retries using getTotalRetries method
-        assertEquals(2, retryExtension.getTotalRetries());
+        assertEquals(totalRetries + 2, retryExtension.getTotalRetries());
     }
 
     @Test

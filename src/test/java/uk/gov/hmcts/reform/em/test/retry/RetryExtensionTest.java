@@ -3,8 +3,10 @@ package uk.gov.hmcts.reform.em.test.retry;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.function.Executable;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
 class RetryExtensionTest {
@@ -53,5 +55,12 @@ class RetryExtensionTest {
 
         // Verify total retries remain unchanged
         assertEquals(initialTotalRetries, retryExtension.getTotalRetries());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenRetryCountExceedsMaxRetries() {
+        Executable executable = () -> new RetryExtension(31);
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, executable);
+        assertEquals("Retry count should not exceed 30", exception.getMessage());
     }
 }

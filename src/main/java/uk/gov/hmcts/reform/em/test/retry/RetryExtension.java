@@ -19,6 +19,9 @@ public class RetryExtension implements TestExecutionExceptionHandler, TestInstan
     private final int retryCount;
 
     public RetryExtension(int retryCount) {
+        if (retryCount > MAX_RETRIES){
+            throw new IllegalArgumentException("Retry count should not exceed " + MAX_RETRIES);
+        }
         this.retryCount = retryCount;
     }
 

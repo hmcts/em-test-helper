@@ -57,7 +57,7 @@ class CcdScenarioTest {
 
     }
 
-    @Test()
+    @Test
     void testFailedCaseCreationDueToCorruptFile() throws IOException {
         ccdDefinitionHelper.createCcdImportUser("bundle-tester@gmail.com","caseworker-publiclaw");
 

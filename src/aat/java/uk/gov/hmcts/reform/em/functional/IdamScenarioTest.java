@@ -23,7 +23,7 @@ class IdamScenarioTest {
     @Autowired
     IdamHelper idamHelper;
 
-    @Test()
+    @Test
     void testCreationAndDeletion() {
         idamHelper.createUser("ab.com", Stream.of("caseworker").toList());
         assertThat(idamHelper.authenticateUser("ab.com")).isNotEmpty();

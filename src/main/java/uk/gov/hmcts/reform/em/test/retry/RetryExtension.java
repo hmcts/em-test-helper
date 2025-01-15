@@ -43,12 +43,10 @@ public class RetryExtension implements TestExecutionExceptionHandler, TestInstan
                 }
                 context.getRequiredTestMethod().invoke(context.getRequiredTestInstance());
                 return;
-            }
-            catch (TestAbortedException testAbortedException) {
+            } catch (TestAbortedException testAbortedException) {
                 caughtThrowable = testAbortedException;
                 break;
-            }
-            catch (Throwable t) {
+            } catch (Throwable t) {
                 caughtThrowable = t;
                 failCount++;
                 log.error("- Retry #{} failed - {}", (i + 1), stackTraceAsString(t));

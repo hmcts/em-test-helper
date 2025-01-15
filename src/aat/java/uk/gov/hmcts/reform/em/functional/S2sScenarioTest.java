@@ -1,24 +1,24 @@
 package uk.gov.hmcts.reform.em.functional;
 
-import org.junit.Assume;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import uk.gov.hmcts.reform.em.EmTestConfig;
 import uk.gov.hmcts.reform.em.test.s2s.S2sHelper;
 
 import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 @SpringBootTest(classes = {EmTestConfig.class})
 @PropertySource(value = "classpath:application.yml")
-@RunWith(SpringRunner.class)
-public class S2sScenario {
+@ExtendWith(SpringExtension.class)
+class S2sScenarioTest {
 
     @Autowired
     S2sHelper s2sHelper;
@@ -32,19 +32,19 @@ public class S2sScenario {
     S2sHelper xuiS2sHelper;
 
     @Test
-    public void getS2sToken() {
+    void getS2sToken() {
         assertThat(s2sHelper.getS2sToken()).isNotEmpty();
     }
 
     @Test
-    public void getCcdS2sToken() {
-        Assume.assumeTrue(Objects.nonNull(ccdS2sHelper));
+    void getCcdS2sToken() {
+        assumeTrue(Objects.nonNull(ccdS2sHelper));
         assertThat(ccdS2sHelper.getS2sToken()).isNotEmpty();
     }
 
     @Test
-    public void getXuiS2sToken() {
-        Assume.assumeTrue(Objects.nonNull(xuiS2sHelper));
+    void getXuiS2sToken() {
+        assumeTrue(Objects.nonNull(xuiS2sHelper));
         assertThat(xuiS2sHelper.getS2sToken()).isNotEmpty();
     }
 }

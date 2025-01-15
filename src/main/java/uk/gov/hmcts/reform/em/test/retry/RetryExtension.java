@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.TestExecutionExceptionHandler;
 import org.junit.jupiter.api.extension.TestInstancePostProcessor;
+import org.opentest4j.TestAbortedException;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -42,7 +43,12 @@ public class RetryExtension implements TestExecutionExceptionHandler, TestInstan
                 }
                 context.getRequiredTestMethod().invoke(context.getRequiredTestInstance());
                 return;
-            } catch (Throwable t) {
+            }
+            catch (TestAbortedException testAbortedException) {
+                caughtThrowable = testAbortedException;
+                break;
+            }
+            catch (Throwable t) {
                 caughtThrowable = t;
                 failCount++;
                 log.error("- Retry #{} failed - {}", (i + 1), stackTraceAsString(t));

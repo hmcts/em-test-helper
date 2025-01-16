@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 import org.junit.jupiter.api.function.Executable;
+import org.opentest4j.TestAbortedException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -29,7 +30,6 @@ class RetryExtensionTest {
 
         // Increment the retry counter
         numberOfRetries++;
-        System.out.println("hello");
         // This assertion will fail, triggering retries
         if (numberOfRetries < 3) {
             fail("Simulating test failure");
@@ -55,6 +55,12 @@ class RetryExtensionTest {
 
         // Verify total retries remain unchanged
         assertEquals(initialTotalRetries, retryExtension.getTotalRetries());
+    }
+
+    @Test
+    @SuppressWarnings("java:S2699")
+    void shouldAbortWhenTestAbortedExceptionIsThrown() {
+        throw new TestAbortedException("Test aborted exception");
     }
 
     @Test

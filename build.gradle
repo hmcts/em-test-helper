@@ -144,7 +144,7 @@ dependencies {
     api "com.github.hmcts:idam-java-client:3.0.4"
     api "com.github.hmcts:ccd-client:5.1.0"
     api "com.github.hmcts:document-management-client:7.0.1"
-    api 'com.github.hmcts:ccd-case-document-am-client:1.59.1'
+    api 'com.github.hmcts:ccd-case-document-am-client:1.59.2'
 
     implementation group: 'com.warrenstrange', name: 'googleauth', version: '1.5.0'
 

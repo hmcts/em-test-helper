@@ -63,7 +63,7 @@ see functional tests in "aat" source folder for examples
 
 ### Prerequisites
 
-- [JDK 8](https://www.oracle.com/java)
+- [Java 21](https://www.oracle.com/java)
 
 
 We use [SemVer](http://semver.org/) for versioning.

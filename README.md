@@ -6,7 +6,7 @@ This is a client library to facilitate common task during functional tests, like
 - CCD case creation
 - CCD definition import 
 
-It is published to jitpack repository via github actions - see .github/workflows/jitpack_build.yml
+It is published to ADO Artifacts via github actions - see .github/workflows/ado_artifacts_build.yml
 Reference in your functional tests in gradle ala   functionalTestImplementation 'com.github.hmcts:em-test-helper:1.18.2'
 
 

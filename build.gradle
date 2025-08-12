@@ -7,18 +7,17 @@ plugins {
     id 'maven-publish'
 }
 
-apply plugin: 'idea'
-
 def buildNumber = System.getenv("RELEASE_VERSION")?.replace("refs/tags/", "") ?: "DEV-SNAPSHOT"
 
-group 'uk.gov.hmcts.reform'
-version buildNumber
+group = 'uk.gov.hmcts.reform'
+version = buildNumber
 
 
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(21)
     }
+    withSourcesJar()
 }
 
 dependencyUpdates.resolutionStrategy = {
@@ -34,11 +33,6 @@ dependencyUpdates.resolutionStrategy = {
     }
 }
 
-configurations {
-    aatImplementation.extendsFrom(testImplementation)
-    aatRuntimeOnly.extendsFrom(testRuntimeOnly)
-}
-
 sourceSets {
     aat {
         java {
@@ -49,6 +43,11 @@ sourceSets {
     test {
         java.srcDir 'src/test/java'
     }
+}
+
+configurations {
+    aatImplementation.extendsFrom(testImplementation)
+    aatRuntimeOnly.extendsFrom(testRuntimeOnly)
 }
 
 checkstyle {
@@ -71,7 +70,7 @@ jar {
     }
 }
 
-task printVersion {
+tasks.register('printVersion') {
     doLast {
         print project.version
     }
@@ -79,32 +78,7 @@ task printVersion {
 
 def gitRepo = "https://github.com/hmcts/em-test-helper"
 
-def pomConfig = {
-    licenses {
-        license {
-            name "MIT License"
-            url "http://www.opensource.org/licenses/mit-license.php"
-            distribution "repo"
-        }
-    }
-
-    scm {
-        url "https://github.com/hmcts/em-test-helper"
-    }
-}
-
-
-task sourcesJar(type: Jar, dependsOn: classes) {
-    archiveClassifier = 'sources'
-    from sourceSets.main.allSource
-}
-
-artifacts {
-    archives sourcesJar
-}
-
 publishing {
-
     repositories {
         maven {
             name = "AzureArtifacts"
@@ -117,19 +91,26 @@ publishing {
     }
 
     publications {
-        Main(MavenPublication) {
+        create('main', MavenPublication) {
             from components.java
-            artifact sourcesJar
-            groupId project.group
-            artifactId 'em-test-helper'
-            version project.version
 
-            pom.withXml {
-                def root = asNode()
-                root.appendNode('description', 'Em Test Helper')
-                root.appendNode('name', 'Em Test Helper')
-                root.appendNode('url', gitRepo)
-                root.children().last() + pomConfig
+            artifactId = 'em-test-helper'
+
+            pom {
+                name = 'Em Test Helper'
+                description = 'Em Test Helper'
+                url = gitRepo
+
+                licenses {
+                    license {
+                        name = "MIT License"
+                        url = "http://www.opensource.org/licenses/mit-license.php"
+                        distribution = "repo"
+                    }
+                }
+                scm {
+                    url = gitRepo
+                }
             }
         }
     }
@@ -217,15 +198,8 @@ jar {
     enabled = true
 }
 
-idea {
-    module {
-        testSourceDirs += project.sourceSets.aat.java.srcDirs
-        testResourceDirs += project.sourceSets.aat.resources.srcDirs
-    }
-}
 
-
-task functional(type: Test) {
+tasks.register('functional', Test) {
     group = 'Delivery pipeline'
     description = 'Executes functional tests'
     setTestClassesDirs(sourceSets.aat.output.classesDirs)

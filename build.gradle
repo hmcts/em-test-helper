@@ -53,7 +53,7 @@ sourceSets {
 
 checkstyle {
     maxWarnings = 0
-    toolVersion = '10.26.1'
+    toolVersion = '11.0.0'
     // need to set configDir to rootDir otherwise submodule will use submodule/config/checkstyle
     getConfigDirectory().set(new File(rootDir, 'config/checkstyle'))
 }
@@ -148,7 +148,7 @@ ext["spring-cloud-openfeign.version"] = "3.0.3"
 dependencies {
     implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-bootstrap', version: '4.3.0'
     api "com.github.hmcts:idam-java-client:3.0.4"
-    api "com.github.hmcts:core-case-data-store-client:5.1.1"
+    api "com.github.hmcts:core-case-data-store-client:5.2.0"
     api "com.github.hmcts:document-management-client:7.0.1"
     api 'com.github.hmcts:ccd-case-document-am-client:1.59.2'
 

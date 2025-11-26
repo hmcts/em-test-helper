@@ -128,7 +128,7 @@ ext["spring-cloud-openfeign.version"] = "3.0.3"
 
 dependencies {
     implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-bootstrap', version: '4.3.0'
-    api "com.github.hmcts:idam-java-client:3.0.4"
+    api "com.github.hmcts:idam-java-client:3.0.5"
     api "com.github.hmcts:core-case-data-store-client:5.2.0"
     api "com.github.hmcts:document-management-client:7.0.1"
     api 'com.github.hmcts:ccd-case-document-am-client:1.59.2'

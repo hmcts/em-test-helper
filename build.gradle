@@ -121,7 +121,7 @@ ext {
     feignVersion = '13.6'
     feignFormVersion = '3.8.0'
     wiremockVersion = '2.24.1'
-    junitJupiterVersion = '6.0.2'
+    junitJupiterVersion = '6.0.3'
 }
 
 ext["spring-cloud-openfeign.version"] = "3.0.3"
@@ -166,7 +166,7 @@ dependencyManagement {
             entry 'log4j-api'
             entry 'log4j-to-slf4j'
         }
-        dependencySet(group: 'org.junit.platform', version: '6.0.2') {
+        dependencySet(group: 'org.junit.platform', version: '6.0.3') {
             entry 'junit-platform-commons'
             entry 'junit-platform-engine'
             entry 'junit-platform-launcher'

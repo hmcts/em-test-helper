@@ -52,7 +52,7 @@ configurations {
 
 checkstyle {
     maxWarnings = 0
-    toolVersion = '13.0.0'
+    toolVersion = '13.2.0'
     // need to set configDir to rootDir otherwise submodule will use submodule/config/checkstyle
     getConfigDirectory().set(new File(rootDir, 'config/checkstyle'))
 }
@@ -118,7 +118,7 @@ publishing {
 
 ext {
     lombokVersion = '1.18.42'
-    feignVersion = '13.6'
+    feignVersion = '13.9'
     feignFormVersion = '3.8.0'
     wiremockVersion = '2.24.1'
     junitJupiterVersion = '6.0.3'
@@ -127,7 +127,7 @@ ext {
 ext["spring-cloud-openfeign.version"] = "3.0.3"
 
 dependencies {
-    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-bootstrap', version: '5.0.0'
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-bootstrap', version: '5.0.1'
     api "com.github.hmcts:idam-java-client:3.0.5"
     api "com.github.hmcts:core-case-data-store-client:5.2.0"
     api "com.github.hmcts:document-management-client:7.0.1"
@@ -135,7 +135,7 @@ dependencies {
 
     implementation group: 'com.warrenstrange', name: 'googleauth', version: '1.5.0'
 
-    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '5.0.0'
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '5.0.1'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-test'
     implementation group: 'io.github.openfeign', name: 'feign-jackson', version: feignVersion
@@ -151,12 +151,12 @@ dependencies {
 
     testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test'
 
-    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-bootstrap', version: '5.0.0'
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-bootstrap', version: '5.0.1'
 
     testImplementation group: 'com.github.tomakehurst', name:'wiremock-jre8', version: '3.0.1'
     testImplementation group: 'org.mockito', name: 'mockito-core', version: '5.21.0'
 
-    testImplementation group: 'org.springframework.cloud', name: 'spring-cloud-contract-wiremock', version: '5.0.1'
+    testImplementation group: 'org.springframework.cloud', name: 'spring-cloud-contract-wiremock', version: '5.0.2'
     implementation group: 'junit', name: 'junit', version: '4.13.2'
 }
 

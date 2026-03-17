@@ -118,7 +118,7 @@ publishing {
 
 ext {
     lombokVersion = '1.18.44'
-    feignVersion = '13.9.3'
+    feignVersion = '13.10'
     feignFormVersion = '3.8.0'
     wiremockVersion = '2.24.1'
     junitJupiterVersion = '6.0.3'

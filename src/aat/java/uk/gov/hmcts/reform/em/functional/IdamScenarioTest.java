@@ -4,7 +4,6 @@ import feign.FeignException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -24,18 +23,17 @@ class IdamScenarioTest {
     @Autowired
     IdamHelper idamHelper;
 
-    @Value("${idam.em-test-helper.user.password}")
-    private String testUserPassword;
+    private static final String TEST_USER_PASSWORD = "DummyTestPassword1!";
 
     @Test
     void testCreationAndDeletion() {
-        idamHelper.createUser("ab.com", testUserPassword, Stream.of("caseworker").toList());
-        assertThat(idamHelper.authenticateUser("ab.com", testUserPassword)).isNotEmpty();
-        assertThat(idamHelper.getUserId("ab.com", testUserPassword)).isNotEmpty();
+        idamHelper.createUser("ab.com", TEST_USER_PASSWORD, Stream.of("caseworker").toList());
+        assertThat(idamHelper.authenticateUser("ab.com", TEST_USER_PASSWORD)).isNotEmpty();
+        assertThat(idamHelper.getUserId("ab.com", TEST_USER_PASSWORD)).isNotEmpty();
         idamHelper.deleteUser("ab.com");
 
         assertThrows(FeignException.BadRequest.class, () ->
-            idamHelper.authenticateUser("ab.com", testUserPassword)
+            idamHelper.authenticateUser("ab.com", TEST_USER_PASSWORD)
         );
     }
 

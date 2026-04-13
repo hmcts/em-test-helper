@@ -20,7 +20,14 @@ public class CcdDataHelper {
         this.coreCaseDataApi = coreCaseDataApi;
     }
 
-    public CaseDetails createCase(String username, String password, String jurisdiction, String caseType, String eventId, Object data) {
+    public CaseDetails createCase(
+            String username,
+            String password,
+            String jurisdiction,
+            String caseType,
+            String eventId,
+            Object data
+    ) {
 
         final String userAuthorization = idamHelper.authenticateUser(username, password);
         final String s2sAuthorization = s2sHelper.getS2sToken();

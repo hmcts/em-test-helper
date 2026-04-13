@@ -20,9 +20,16 @@ public class CcdDataHelper {
         this.coreCaseDataApi = coreCaseDataApi;
     }
 
-    public CaseDetails createCase(String username, String jurisdiction, String caseType, String eventId, Object data) {
+    public CaseDetails createCase(
+            String username,
+            String password,
+            String jurisdiction,
+            String caseType,
+            String eventId,
+            Object data
+    ) {
 
-        final String userAuthorization = idamHelper.authenticateUser(username);
+        final String userAuthorization = idamHelper.authenticateUser(username, password);
         final String s2sAuthorization = s2sHelper.getS2sToken();
 
         StartEventResponse startEventResponse = coreCaseDataApi.startCase(
@@ -34,7 +41,7 @@ public class CcdDataHelper {
         CaseDetails caseDetails = coreCaseDataApi.submitForCaseworker(
                 userAuthorization,
                 s2sAuthorization,
-                idamHelper.getUserId(username),
+                idamHelper.getUserId(username, password),
                 jurisdiction,
                 caseType,
                 false,
@@ -47,16 +54,16 @@ public class CcdDataHelper {
 
     }
 
-    public CaseDetails getCase(String username, String caseId) {
-        final String userAuthorization = idamHelper.authenticateUser(username);
+    public CaseDetails getCase(String username, String password, String caseId) {
+        final String userAuthorization = idamHelper.authenticateUser(username, password);
         final String s2sAuthorization = s2sHelper.getS2sToken();
         return coreCaseDataApi.getCase(userAuthorization, s2sAuthorization, caseId);
     }
 
-    public CaseDetails triggerEvent(String username, String caseId, String eventId) {
-        final String userAuthorization = idamHelper.authenticateUser(username);
+    public CaseDetails triggerEvent(String username, String password, String caseId, String eventId) {
+        final String userAuthorization = idamHelper.authenticateUser(username, password);
         final String s2sAuthorization = s2sHelper.getS2sToken();
-        final String userId = idamHelper.getUserId(username);
+        final String userId = idamHelper.getUserId(username, password);
 
         StartEventResponse startEventResponse = coreCaseDataApi
                 .startEvent(userAuthorization, s2sAuthorization, caseId, eventId);

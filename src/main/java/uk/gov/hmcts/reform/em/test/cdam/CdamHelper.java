@@ -21,21 +21,21 @@ public class CdamHelper {
     private final S2sHelper s2sHelper;
     private final IdamHelper idamHelper;
 
-    public UploadResponse uploadDocuments(String username,
+    public UploadResponse uploadDocuments(String username, String password,
                                           DocumentUploadRequest uploadRequest) {
-        return caseDocumentClientApi.uploadDocuments(idamHelper.authenticateUser(username),
+        return caseDocumentClientApi.uploadDocuments(idamHelper.authenticateUser(username, password),
                 "Bearer " + s2sHelper.getS2sToken(),
                             uploadRequest);
     }
 
-    public Document getDocumentMetadata(String username, UUID documentId) {
-        return caseDocumentClientApi.getMetadataForDocument(idamHelper.authenticateUser(username),
+    public Document getDocumentMetadata(String username, String password, UUID documentId) {
+        return caseDocumentClientApi.getMetadataForDocument(idamHelper.authenticateUser(username, password),
             s2sHelper.getS2sToken(), documentId);
     }
 
-    public InputStream getDocumentBinary(String username, UUID documentId) throws IOException {
+    public InputStream getDocumentBinary(String username, String password, UUID documentId) throws IOException {
         ResponseEntity<Resource> responseEntity =
-            caseDocumentClientApi.getDocumentBinary(idamHelper.authenticateUser(username),
+            caseDocumentClientApi.getDocumentBinary(idamHelper.authenticateUser(username, password),
                 s2sHelper.getS2sToken(), documentId);
         return responseEntity.getBody().getInputStream();
     }

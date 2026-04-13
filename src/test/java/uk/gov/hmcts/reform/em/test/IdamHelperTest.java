@@ -53,7 +53,7 @@ class IdamHelperTest {
 
     @Test
     void testCreateUser() {
-        idamHelper.createUser("x", Stream.of("x").toList());
+        idamHelper.createUser("x", "pass", Stream.of("x").toList());
         verify(deleteUserApi, times(1)).deleteUser("x");
         verify(idamTestApi, times(1)).createUser(any());
     }
@@ -65,7 +65,7 @@ class IdamHelperTest {
         when(openIdAuthUserResponse.getAccessToken()).thenReturn("b");
         when(openIdUserApi.authenticateUser(any())).thenReturn(openIdAuthUserResponse);
         when(idamClient.getUserInfo("Bearer b")).thenReturn(userDetailsMock);
-        assertThat(idamHelper.getUserId("x")).isEqualTo("id");
+        assertThat(idamHelper.getUserId("x", "pass")).isEqualTo("id");
     }
 
     @Test
@@ -78,19 +78,9 @@ class IdamHelperTest {
     void testAuthenticateUser() {
         when(openIdAuthUserResponse.getAccessToken()).thenReturn("b");
         when(openIdUserApi.authenticateUser(any())).thenReturn(openIdAuthUserResponse);
-        assertThat(idamHelper.authenticateUser("x")).isEqualTo("Bearer b");
-        assertThat(idamHelper.authenticateUser("x")).isEqualTo("Bearer b");
-        assertThat(idamHelper.authenticateUser("x")).isEqualTo("Bearer b");
-        verify(openIdUserApi, times(1)).authenticateUser(any());
-    }
-
-    @Test
-    void testAuthenticateUserWithPassword() {
-        when(openIdAuthUserResponse.getAccessToken()).thenReturn("b");
-        when(openIdUserApi.authenticateUser(any())).thenReturn(openIdAuthUserResponse);
         assertThat(idamHelper.authenticateUser("x", "pass")).isEqualTo("Bearer b");
         assertThat(idamHelper.authenticateUser("x", "pass")).isEqualTo("Bearer b");
-        assertThat(idamHelper.authenticateUser("x")).isEqualTo("Bearer b");
+        assertThat(idamHelper.authenticateUser("x", "pass")).isEqualTo("Bearer b");
         verify(openIdUserApi, times(1)).authenticateUser(any());
     }
 

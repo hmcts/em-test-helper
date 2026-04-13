@@ -23,15 +23,17 @@ class IdamScenarioTest {
     @Autowired
     IdamHelper idamHelper;
 
+    private static final String TEST_USER_PASSWORD = "DummyTestPassword1!";
+
     @Test
     void testCreationAndDeletion() {
-        idamHelper.createUser("ab.com", Stream.of("caseworker").toList());
-        assertThat(idamHelper.authenticateUser("ab.com")).isNotEmpty();
-        assertThat(idamHelper.getUserId("ab.com")).isNotEmpty();
+        idamHelper.createUser("ab.com", TEST_USER_PASSWORD, Stream.of("caseworker").toList());
+        assertThat(idamHelper.authenticateUser("ab.com", TEST_USER_PASSWORD)).isNotEmpty();
+        assertThat(idamHelper.getUserId("ab.com", TEST_USER_PASSWORD)).isNotEmpty();
         idamHelper.deleteUser("ab.com");
 
         assertThrows(FeignException.BadRequest.class, () ->
-            idamHelper.authenticateUser("ab.com")
+            idamHelper.authenticateUser("ab.com", TEST_USER_PASSWORD)
         );
     }
 

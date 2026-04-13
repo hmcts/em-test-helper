@@ -36,6 +36,7 @@ class CdamScenarioTest {
     private static final String CASE_TYPE_ID = "BEFTA_CASETYPE_2_1";
     private static final String JURISDICTION_ID = "BEFTA_JURISDICTION_2";
     private static final String USERNAME = "ab@mail.com";
+    private static final String TEST_USER_PASSWORD = "DummyTestPassword1!";
 
     @Test
     void testUploadDocuments() throws IOException {
@@ -52,7 +53,7 @@ class CdamScenarioTest {
     void testGetDocumentMetadata() throws IOException {
         UploadResponse uploadResponse = getUploadDocumentResponse();
         UUID uuid = extractDocumentId(uploadResponse.getDocuments().get(0).links.self.href);
-        Document document = cdamHelper.getDocumentMetadata(USERNAME, uuid);
+        Document document = cdamHelper.getDocumentMetadata(USERNAME, TEST_USER_PASSWORD, uuid);
         assertThat(document.metadata).isNotEmpty();
     }
 
@@ -61,7 +62,7 @@ class CdamScenarioTest {
     }
 
     private UploadResponse getUploadDocumentResponse() throws IOException {
-        idamHelper.createUser(USERNAME, Stream.of("caseworker").toList());
+        idamHelper.createUser(USERNAME, TEST_USER_PASSWORD, Stream.of("caseworker").toList());
         final MultipartFile multipartFile = new MockMultipartFile(
             "ccd_case_example.xlsx",
             "ccd_case_example.xlsx",
@@ -71,6 +72,6 @@ class CdamScenarioTest {
         DocumentUploadRequest documentUploadRequest = new DocumentUploadRequest(Classification.PUBLIC.toString(),
             CASE_TYPE_ID, JURISDICTION_ID, Stream.of(multipartFile).toList());
 
-        return cdamHelper.uploadDocuments(USERNAME, documentUploadRequest);
+        return cdamHelper.uploadDocuments(USERNAME, TEST_USER_PASSWORD, documentUploadRequest);
     }
 }

@@ -3,6 +3,7 @@ package uk.gov.hmcts.reform.em.functional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -33,14 +34,17 @@ class CcdScenarioTest {
     @Autowired
     IdamHelper idamHelper;
 
+    @Value("${idam.em-test-helper.user.password}")
+    private String testUserPassword;
+
     @Test
     void testCaseCreationAndRetrieval() throws Exception {
-        ccdDefinitionHelper.createCcdImportUser("bundle-tester@gmail.com","caseworker-publiclaw");
+        ccdDefinitionHelper.createCcdImportUser("bundle-tester@gmail.com", testUserPassword, "caseworker-publiclaw");
 
-        ccdDefinitionHelper.importDefinitionFile("bundle-tester@gmail.com", "caseworker-publiclaw",
+        ccdDefinitionHelper.importDefinitionFile("bundle-tester@gmail.com", testUserPassword, "caseworker-publiclaw",
             ClassLoader.getSystemClassLoader().getResourceAsStream("ccd_case_example.xlsx"));
 
-        CaseDetails caseDetails = ccdDataHelper.createCase("bundle-tester@gmail.com",
+        CaseDetails caseDetails = ccdDataHelper.createCase("bundle-tester@gmail.com", testUserPassword,
                 "PUBLICLAW",
                 "CCD_BUNDLE_MVP_ASYNC_TEST4",
                 "createCase", null
@@ -48,23 +52,23 @@ class CcdScenarioTest {
 
         assertThat(caseDetails).isNotNull();
 
-        CaseDetails retrievedCaseDetails = ccdDataHelper.getCase("bundle-tester@gmail.com",
+        CaseDetails retrievedCaseDetails = ccdDataHelper.getCase("bundle-tester@gmail.com", testUserPassword,
                 caseDetails.getId().toString());
 
         assertThat(retrievedCaseDetails).isNotNull();
 
-        ccdDataHelper.triggerEvent("bundle-tester@gmail.com", caseDetails.getId().toString(), "editCaseDetails");
+        ccdDataHelper.triggerEvent("bundle-tester@gmail.com", testUserPassword, caseDetails.getId().toString(), "editCaseDetails");
 
     }
 
     @Test
     void testFailedCaseCreationDueToCorruptFile() throws IOException {
-        ccdDefinitionHelper.createCcdImportUser("bundle-tester@gmail.com","caseworker-publiclaw");
+        ccdDefinitionHelper.createCcdImportUser("bundle-tester@gmail.com", testUserPassword, "caseworker-publiclaw");
 
         try (InputStream inputStream =
                 ClassLoader.getSystemClassLoader().getResourceAsStream("corrupt_ccd_definition.xlsx")) {
             assertThrows(HttpClientErrorException.class, () ->
-                ccdDefinitionHelper.importDefinitionFile("bundle-tester@gmail.com",
+                ccdDefinitionHelper.importDefinitionFile("bundle-tester@gmail.com", testUserPassword,
                     "caseworker-publiclaw",
                     inputStream)
             );

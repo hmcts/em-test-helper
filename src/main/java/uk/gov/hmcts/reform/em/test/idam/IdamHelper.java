@@ -25,8 +25,6 @@ public class IdamHelper {
 
     private final OpenIdConfiguration openIdConfiguration;
 
-    private final String password = "4590fgvhbfgbDdffm3lk4j";
-
     private final Map<String, String> idamTokens = new HashMap<>();
 
     public IdamHelper(IdamClient idamClient, IdamTestApi idamTestApi, DeleteUserApi deleteUserApi,
@@ -38,7 +36,7 @@ public class IdamHelper {
         this.openIdConfiguration = openIdConfiguration;
     }
 
-    public void createUser(String username, List<String> roles) {
+    public void createUser(String username, String password, List<String> roles) {
 
         deleteUser(username);
 
@@ -56,12 +54,8 @@ public class IdamHelper {
         }
     }
 
-    public String getUserId(String username) {
-        return idamClient.getUserInfo(authenticateUser(username)).getUid();
-    }
-
-    public String authenticateUser(String username) {
-        return authenticateOrGetFromCache(username, this.password);
+    public String getUserId(String username, String password) {
+        return idamClient.getUserInfo(authenticateUser(username, password)).getUid();
     }
 
     public String authenticateUser(String username, String password) {

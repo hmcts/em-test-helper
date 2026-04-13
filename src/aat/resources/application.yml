@@ -27,6 +27,9 @@ idam:
     redirect_uri: 'http://localhost:8080/oauth2redirect'
     grant_type: 'password'
     scope: 'openid roles profile'
+  em-test-helper:
+    user:
+      password: ${IDAM_EM_TEST_HELPER_USER_PASSWORD}
 
 s2s:
   api:

@@ -4,6 +4,7 @@ import feign.FeignException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -23,15 +24,18 @@ class IdamScenarioTest {
     @Autowired
     IdamHelper idamHelper;
 
+    @Value("${idam.em-test-helper.user.password}")
+    private String testUserPassword;
+
     @Test
     void testCreationAndDeletion() {
-        idamHelper.createUser("ab.com", Stream.of("caseworker").toList());
-        assertThat(idamHelper.authenticateUser("ab.com")).isNotEmpty();
-        assertThat(idamHelper.getUserId("ab.com")).isNotEmpty();
+        idamHelper.createUser("ab.com", testUserPassword, Stream.of("caseworker").toList());
+        assertThat(idamHelper.authenticateUser("ab.com", testUserPassword)).isNotEmpty();
+        assertThat(idamHelper.getUserId("ab.com", testUserPassword)).isNotEmpty();
         idamHelper.deleteUser("ab.com");
 
         assertThrows(FeignException.BadRequest.class, () ->
-            idamHelper.authenticateUser("ab.com")
+            idamHelper.authenticateUser("ab.com", testUserPassword)
         );
     }
 

@@ -25,14 +25,14 @@ public class CcdDefinitionHelper {
         this.ccdDefUserRoleApi = ccdDefUserRoleApi;
     }
 
-    public void createCcdImportUser(String username, String userRole) {
-        this.idamHelper.createUser(username, Stream.of(userRole, "ccd-import").collect(Collectors.toList()));
+    public void createCcdImportUser(String username, String password, String userRole) {
+        this.idamHelper.createUser(username, password, Stream.of(userRole, "ccd-import").collect(Collectors.toList()));
     }
 
-    public String importDefinitionFile(String username, String userRole, InputStream caseDefFile) throws IOException {
+    public String importDefinitionFile(String username, String password, String userRole, InputStream caseDefFile) throws IOException {
 
         ccdDefUserRoleApi.createUserRole(new CcdDefUserRoleApi.CreateUserRoleBody(userRole, "PUBLIC"),
-                idamHelper.authenticateUser(username), s2sHelper.getS2sToken());
+                idamHelper.authenticateUser(username, password), s2sHelper.getS2sToken());
 
         MultipartFile multipartFile = new MockMultipartFile(
                 "x",
@@ -40,7 +40,7 @@ public class CcdDefinitionHelper {
                 "application/octet-stream",
                 caseDefFile);
 
-        String result = ccdDefImportApi.importCaseDefinition(idamHelper.authenticateUser(username),
+        String result = ccdDefImportApi.importCaseDefinition(idamHelper.authenticateUser(username, password),
             s2sHelper.getS2sToken(), multipartFile);
 
         return result;

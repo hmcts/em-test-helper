@@ -38,8 +38,13 @@ public class CcdDefImportApi {
 
         HttpHeaders httpHeaders = setHttpHeaders(authorisation, serviceAuth);
 
+        // TODO: Using the pre-Spring-7 constructor HttpEntity(T, MultiValueMap<String, String>) intentionally.
+        // The Spring 7 constructor HttpEntity(@Nullable T, @Nullable HttpHeaders) does not exist in older
+        // Spring versions. Casting to MultiValueMap<String, String> ensures runtime compatibility for
+        // consumers of this library who may be on Spring 5/6.
+        @SuppressWarnings("removal")
         HttpEntity<MultiValueMap<String, Object>> httpEntity = new HttpEntity<>(
-                parameters, httpHeaders
+                parameters, (MultiValueMap<String, String>) httpHeaders
         );
 
         String result = restTemplate.postForObject(url + "/import", httpEntity, String.class);
@@ -57,8 +62,13 @@ public class CcdDefImportApi {
         return headers;
     }
 
+    // TODO: Using the pre-Spring-7 constructor HttpEntity(T, MultiValueMap<String, String>) intentionally.
+    // The Spring 7 constructor HttpEntity(@Nullable T, @Nullable HttpHeaders) does not exist in older
+    // Spring versions. Casting to MultiValueMap<String, String> ensures runtime compatibility for
+    // consumers of this library who may be on Spring 5/6.
+    @SuppressWarnings("removal")
     private static HttpEntity<Resource> buildPartFromFile(MultipartFile file) {
-        return new HttpEntity<>(buildByteArrayResource(file), buildPartHeaders(file));
+        return new HttpEntity<>(buildByteArrayResource(file), (MultiValueMap<String, String>) buildPartHeaders(file));
     }
 
     private static HttpHeaders buildPartHeaders(MultipartFile file) {

@@ -1,8 +1,8 @@
 plugins {
     id 'checkstyle'
     id 'io.spring.dependency-management' version '1.1.7'
-    id 'org.springframework.boot' version '4.0.5'
-    id 'com.github.ben-manes.versions' version '0.53.0'
+    id 'org.springframework.boot' version '4.0.6'
+    id 'com.github.ben-manes.versions' version '0.54.0'
     id 'java-library'
     id 'maven-publish'
 }
@@ -117,8 +117,8 @@ publishing {
 }
 
 ext {
-    lombokVersion = '1.18.44'
-    feignVersion = '13.11'
+    lombokVersion = '1.18.46'
+    feignVersion = '13.12'
     feignFormVersion = '3.8.0'
     wiremockVersion = '2.24.1'
     junitJupiterVersion = '6.0.3'

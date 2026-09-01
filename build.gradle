@@ -1,7 +1,7 @@
 plugins {
     id 'checkstyle'
     id 'io.spring.dependency-management' version '1.1.7'
-    id 'org.springframework.boot' version '4.0.6'
+    id 'org.springframework.boot' version '4.0.8'
     id 'com.github.ben-manes.versions' version '0.54.0'
     id 'java-library'
     id 'maven-publish'
@@ -120,24 +120,22 @@ ext {
     lombokVersion = '1.18.46'
     feignVersion = '13.12'
     feignFormVersion = '3.8.0'
-    wiremockVersion = '2.24.1'
     junitJupiterVersion = '6.0.3'
 }
 
-ext["spring-cloud-openfeign.version"] = "3.0.3"
-
 dependencies {
     implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-bootstrap', version: '5.0.3'
-    api "com.github.hmcts:idam-java-client:3.0.5"
-    api "com.github.hmcts:core-case-data-store-client:5.2.0"
-    api "com.github.hmcts:document-management-client:9.0.0"
+    api "com.github.hmcts:idam-java-client:4.0.0"
+    api "com.github.hmcts:core-case-data-store-client:6.1.0"
+    api "com.github.hmcts:document-management-client:10.0.0"
     api 'com.github.hmcts:ccd-case-document-am-client:1.60.0'
 
     implementation group: 'com.warrenstrange', name: 'googleauth', version: '1.5.0'
 
     implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '5.0.3'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
-    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-test'
+    api group: 'org.springframework', name: 'spring-test'
+    api group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: junitJupiterVersion
     implementation group: 'io.github.openfeign', name: 'feign-jackson', version: feignVersion
     implementation group: 'io.github.openfeign', name: 'feign-httpclient', version: feignVersion
     implementation group: 'io.github.openfeign.form', name: 'feign-form', version: feignFormVersion
@@ -151,13 +149,10 @@ dependencies {
 
     testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test'
 
-    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-bootstrap', version: '5.0.3'
-
     testImplementation group: 'com.github.tomakehurst', name:'wiremock-jre8', version: '3.0.1'
     testImplementation group: 'org.mockito', name: 'mockito-core', version: '5.23.0'
 
     testImplementation group: 'org.springframework.cloud', name: 'spring-cloud-contract-wiremock', version: '5.0.3'
-    implementation group: 'junit', name: 'junit', version: '4.13.2'
 }
 
 dependencyManagement {

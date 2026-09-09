@@ -2,7 +2,7 @@ plugins {
     id 'checkstyle'
     id 'io.spring.dependency-management' version '1.1.7'
     id 'org.springframework.boot' version '4.0.8'
-    id 'com.github.ben-manes.versions' version '0.54.0'
+    id 'com.github.ben-manes.versions' version '0.61.0'
     id 'java-library'
     id 'maven-publish'
 }
@@ -118,9 +118,9 @@ publishing {
 
 ext {
     lombokVersion = '1.18.46'
-    feignVersion = '13.12'
+    feignVersion = '13.14'
     feignFormVersion = '3.8.0'
-    junitJupiterVersion = '6.0.3'
+    junitJupiterVersion = '6.1.3'
 }
 
 dependencies {
@@ -128,7 +128,7 @@ dependencies {
     api "com.github.hmcts:idam-java-client:4.0.0"
     api "com.github.hmcts:core-case-data-store-client:6.1.0"
     api "com.github.hmcts:document-management-client:10.0.0"
-    api 'com.github.hmcts:ccd-case-document-am-client:1.60.0'
+    api 'com.github.hmcts:ccd-case-document-am-client:2.0.0'
 
     implementation group: 'com.warrenstrange', name: 'googleauth', version: '1.5.0'
 
@@ -161,7 +161,7 @@ dependencyManagement {
             entry 'log4j-api'
             entry 'log4j-to-slf4j'
         }
-        dependencySet(group: 'org.junit.platform', version: '6.0.3') {
+        dependencySet(group: 'org.junit.platform', version: '6.1.3') {
             entry 'junit-platform-commons'
             entry 'junit-platform-engine'
             entry 'junit-platform-launcher'

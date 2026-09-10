@@ -33,23 +33,15 @@ public class CcdDefImportApi {
                                        @RequestHeader("ServiceAuthorization") String serviceAuth,
                                        @RequestPart MultipartFile file) {
 
-        MultiValueMap<String, Object> parameters = new LinkedMultiValueMap();
+        MultiValueMap<String, Object> parameters = new LinkedMultiValueMap<>();
         parameters.add("file", buildPartFromFile(file));
 
         HttpHeaders httpHeaders = setHttpHeaders(authorisation, serviceAuth);
 
-        // TODO: Using the pre-Spring-7 constructor HttpEntity(T, MultiValueMap<String, String>) intentionally.
-        // The Spring 7 constructor HttpEntity(@Nullable T, @Nullable HttpHeaders) does not exist in older
-        // Spring versions. Casting to MultiValueMap<String, String> ensures runtime compatibility for
-        // consumers of this library who may be on Spring 5/6.
-        @SuppressWarnings("removal")
-        HttpEntity<MultiValueMap<String, Object>> httpEntity = new HttpEntity<>(
-                parameters, (MultiValueMap<String, String>) httpHeaders
-        );
+        // Spring 7: HttpHeaders is not a MultiValueMap — use HttpEntity(T, HttpHeaders).
+        HttpEntity<MultiValueMap<String, Object>> httpEntity = new HttpEntity<>(parameters, httpHeaders);
 
-        String result = restTemplate.postForObject(url + "/import", httpEntity, String.class);
-        return result;
-
+        return restTemplate.postForObject(url + "/import", httpEntity, String.class);
     }
 
     private HttpHeaders setHttpHeaders(String authorizationToken, String serviceAuth) {
@@ -62,13 +54,8 @@ public class CcdDefImportApi {
         return headers;
     }
 
-    // TODO: Using the pre-Spring-7 constructor HttpEntity(T, MultiValueMap<String, String>) intentionally.
-    // The Spring 7 constructor HttpEntity(@Nullable T, @Nullable HttpHeaders) does not exist in older
-    // Spring versions. Casting to MultiValueMap<String, String> ensures runtime compatibility for
-    // consumers of this library who may be on Spring 5/6.
-    @SuppressWarnings("removal")
     private static HttpEntity<Resource> buildPartFromFile(MultipartFile file) {
-        return new HttpEntity<>(buildByteArrayResource(file), (MultiValueMap<String, String>) buildPartHeaders(file));
+        return new HttpEntity<>(buildByteArrayResource(file), buildPartHeaders(file));
     }
 
     private static HttpHeaders buildPartHeaders(MultipartFile file) {

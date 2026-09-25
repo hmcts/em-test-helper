@@ -139,7 +139,7 @@ dependencies {
     implementation group: 'io.github.openfeign', name: 'feign-jackson', version: feignVersion
     implementation group: 'io.github.openfeign', name: 'feign-httpclient', version: feignVersion
     implementation group: 'io.github.openfeign.form', name: 'feign-form', version: feignFormVersion
-    implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jdk8', version: '2.22.2'
+    implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jdk8', version: '2.22.3'
 
     implementation group: 'org.projectlombok', name: 'lombok', version: lombokVersion
     annotationProcessor group: 'org.projectlombok', name: 'lombok', version: lombokVersion
@@ -150,7 +150,7 @@ dependencies {
     testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test'
 
     testImplementation group: 'com.github.tomakehurst', name:'wiremock-jre8', version: '3.0.1'
-    testImplementation group: 'org.mockito', name: 'mockito-core', version: '5.23.0'
+    testImplementation group: 'org.mockito', name: 'mockito-core', version: '5.24.0'
 
     testImplementation group: 'org.springframework.cloud', name: 'spring-cloud-contract-wiremock', version: '5.0.3'
 }
